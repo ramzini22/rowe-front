@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <header>
       <Container className='h-100 d-flex justify-content-between align-items-center'>
-        <Link to="/"><img src={Logo} alt="ROWE oil Kazan" /></Link>
+        <Link to="/"><img src={Logo} alt="ROWE oil Kazan" className='logo'/></Link>
         {
           (!mobile) &&
           <>

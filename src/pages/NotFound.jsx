@@ -6,6 +6,7 @@ const NotFound = () => {
     <main>
       <Container>
         <h1>404</h1>
+        <h4 className='text-center'>Страница не найдена</h4>
       </Container>
     </main>
   );
