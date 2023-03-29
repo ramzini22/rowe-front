@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import Logo from '../assets/imgs/logo_kzn.svg';
 import SearchIcon from './svg/SearchIcon';
 import SmartphoneIcon from './svg/SmartphoneIcon';
@@ -8,7 +8,7 @@ import useIsMobile from '../hooks/isMobile';
 import Menu from '../assets/imgs/MenuIcon.svg';
 
 const Header = () => {
-  const {mobile} = useIsMobile('991px')
+  const {mobile} = useIsMobile('991px');
 
   return (
     <header>
@@ -19,10 +19,10 @@ const Header = () => {
           <>
             <nav>
               <ul className='list-unstyled d-flex align-items-center'>
-                <li><Link to="/">Главная</Link></li>
-                <li><Link to="/">О бренде</Link></li>
-                <li><Link to="/">Контакты</Link></li>
-                <li><Link to="/" className='btn-1'>Каталог</Link></li>
+                <li><NavLink to="/">Главная</NavLink></li>
+                <li><NavLink to="/about">О бренде</NavLink></li>
+                <li><NavLink to="/contacts">Контакты</NavLink></li>
+                <li><NavLink to="/catalog" className='btn-1'>Каталог</NavLink></li>
               </ul>
             </nav>
             <a href="tel:+7-987-212-60-76" className='link fs-12 d-flex align-items-center'>

@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 
+// "homepage": "https://ngf93.github.io/roweoil-front",
+
 :root {
   --h-height: 65px;
   --f-height: 310px;
@@ -16,6 +18,7 @@ $main-font: "Manrope";
 $title-font: "Bebas";
 $red: #CC0000;
 $bright-red: #E4170F;
+$pink: #FFD3D3;
 $white: #FFFFFF;
 $black: #1F1F1F;
 $light-gray: #F3F3F3;
@@ -109,6 +112,17 @@ h1, .h1 {
   text-align: center;
   line-height: 100%;
   margin-bottom: .5em;
+  &.inner {
+    font-family: $main-font;
+    font-size: 1.8em;
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 1.5em;
+    @media (max-width: $bp-xs) {
+      font-size: 1.4em;
+      margin-bottom: 1em;
+    }
+  }
   @media (max-width: $bp-md) {
     font-size: 5em;
   }
@@ -176,6 +190,7 @@ h6 {
   font-size: 1em;
   font-weight: 500;
   text-align: left;
+  margin-bottom: .5em;
 }
 .fs {
   &-08 {font-size: 0.8em;}
@@ -237,11 +252,93 @@ input, textarea {
     font-weight: 400;
   }
 }
+input {
+  &[type='checkbox']{
+      @include no-appearance;
+      width: 1em;
+      height: 1em;
+      border: 1px solid $dark-gray;
+      background-color: $white;
+      border-radius: 2px;
+      box-shadow: none;
+      padding: 0px;
+      margin: 0px;
+      transition: $transition;
+      position: relative;
+      &:checked {
+        border: 1px solid $red;
+        background-color: $red;
+        background-image: url(imgs/mark.svg);
+        background-repeat: no-repeat;
+        background-position: 55% 55%;
+        background-size: 90%;
+      }
+  }
+}
 label {
   @include flex(row, flex-start, center, nowrap);
-  span {
-    flex:1;
-    margin-left: .6em;
+  span {flex:1;}
+}
+select {
+  border: none;
+}
+
+.range {
+  &-inputs {
+    @include flex(row, center, center, nowrap);
+    input {
+      flex-grow: 1;
+    }
+  }
+  &-slider {
+    position: relative;
+    width: 100%;
+    height: .8em;
+    &-rail {
+      position: absolute;
+      top: 50%;
+      left: 0px;
+      transform: translateY(-50%);
+      width: 100%;
+      height: 3px;
+      background-color: $gray;
+    }
+    &-track {
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      transform: translateY(-50%);
+      width: 40%;
+      height: 3px;
+      background-color: $red;
+    }
+    &-handle {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: .8em;
+      height: .8em;
+      border-radius: 50%;
+      background-color: $white;
+      box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+      transition: $transition;
+      &:hover, &:focus {
+        cursor: grab;
+        background-color: $pink;
+      }
+      &:active {
+        cursor: grabbing;
+        background-color: $red;
+      }
+      &-1 {
+        @extend .range-slider-handle;
+        left: 10%;
+      }
+      &-2 {
+        @extend .range-slider-handle;
+        left: 50%;
+      }
+    }
   }
 }
 
@@ -270,8 +367,8 @@ button {
       color: $white;
       background: $bright-red;
     }
-    &:active {
-      color: $white;
+    &:active, &.active {
+      color: $white !important;
       background: $bright-red;
       @include shadowColored($bright-red, .75);
     }
@@ -287,6 +384,16 @@ button {
     &:active {
       color: $white;
       background: $bright-red;
+    }
+  }
+  &-3 {
+    @extend .btn;
+    color: $black;
+    background: transparent;
+    border: 1px solid $black;
+    &:hover, &:focus, &:active, &.active {
+      color: $white;
+      background: $black;
     }
   }
 }
@@ -307,12 +414,68 @@ button {
     margin-bottom: 3em;
   }
 }
+.breadcrumbs {
+  color: $gray;
+  margin-bottom: 1.5em;
+  ul {
+    @include list();
+    @include flex(row, flex-start, center, nowrap);
+    font-size: .8em;
+    font-weight: 500;
+    li {
+      &:not(:first-child){
+        margin-left: .6em;
+        padding-left: 1em;
+        position: relative;
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0%;
+          left: 0%;
+          height: 100%;
+          width: 1em;
+          background: url(imgs/chevron-right.svg) no-repeat left center;
+          background-size: .75em;
+        }
+      }
+    }
+  }
+}
 @media (min-width: 1606px) {
   .container {
     max-width: 1526px;
   }
 } 
-
+.accordion {
+  --bs-accordion-color: $black;
+  --bs-accordion-active-color: $black;
+  --bs-accordion-bg: transparent;
+  --bs-accordion-active-bg: transparent;
+  --bs-accordion-btn-icon: url(/src/assets/imgs/chevron-down.svg);
+  --bs-accordion-btn-active-icon: url(/src/assets/imgs/chevron-down.svg);
+  --bs-accordion-btn-icon-width: .8em;
+  --bs-accordion-btn-icon-size: .8em;
+  --bs-accordion-body-padding-x: 0px;
+  --bs-accordion-body-padding-y: .75em;
+  --bs-accordion-btn-padding-x: 0px;
+  --bs-accordion-btn-padding-y: 1em;
+  --bs-accordion-btn-focus-box-shadow: none;
+  &-body {
+    padding: 0px 0px var(--bs-accordion-body-padding-y);
+  }
+  &-item {
+    border: none;
+    border-bottom: 1px solid $light-gray;
+  }
+  &-button {
+    font-size: 1em;
+    font-weight: 500;
+    color: #000;
+    &:not(.collapsed) {
+      box-shadow: none;
+    }
+  }
+}
 
 body {
   margin: 0;
@@ -348,7 +511,7 @@ header {
   ul {
     li {
       &:not(:first-child){margin-left: 2.5em;}
-      a {
+      a:not(.btn-1) {
         font-size: 1em;
         font-weight: 500;
         transition: $transition;
@@ -896,6 +1059,156 @@ figure.category {
   }
 }
 
+/* Section 8 */
+.sec-8 {
+  ul {
+    @include list();
+    @include flex(row, flex-start, flex-start, nowrap);
+    li {
+      width: fit-content;
+      &:not(:last-child){
+        margin-right: 2em;
+        @media (max-width: $bp-xl) {
+          margin-right: 1em;
+        }
+      }
+    }
+  }
+  .category-pill {
+    display: block;
+    --w: 200px;
+    width: var(--w);
+    @media (max-width: $bp-xxl) {
+      --w: 180px;
+    }
+    @media (max-width: $bp-xl) {
+      --w: 170px;
+    }
+    @media (max-width: $bp-lg) {
+      --w: 140px;
+    }
+    img {
+      background: radial-gradient(53.7% 53.7% at 50.14% 46.3%, #CFD9E8 0%, #91A6C5 100%);
+      width: var(--w);
+      height: var(--w);
+      object-fit: cover;
+      border-radius: $radius;
+      margin-bottom: .5em;
+      &.bg {
+        object-fit: scale-down;
+        padding: 5%;
+      }
+    }
+  }
+}
+
+/* Section 9 */
+.sec-9 {
+  .subcategories {
+    @include list();
+    @include flex(row, flex-start, center, wrap);
+    font-size: .8em;
+    margin-bottom: 4em;
+    @media (max-width: $bp-sm) {
+      margin-bottom:3em;
+    }
+    @media (max-width: $bp-xs) {
+      font-size: .7em;
+      margin-bottom:2em;
+    }
+    li:not(:last-child){
+      margin-right: 1em;
+      margin-bottom: .75em;
+      @media (max-width: $bp-xs) {
+        margin-right: .75em;
+      margin-bottom: .75em;
+      }
+    }
+  }
+}
+.filter {
+  ul {
+    @include list();
+    font-size: .8em;
+    li:not(:last-child){
+      margin-bottom: .5em;
+    }
+  }
+}
+.product-card {
+  position: relative;
+  img {
+    width: 100%;
+    height: 340px;
+    object-fit: scale-down;
+    margin-bottom: 1em;
+    @media (max-width: $bp-xl) {
+      height: 280px;
+    }
+    @media (max-width: $bp-lg) {
+      height: 240px;
+    }
+    @media (max-width: $bp-xs) {
+      height: 45vw;
+      margin-bottom: .5em;
+    }
+  }
+  h3 {
+    font-size: .8em;
+    font-weight: 500;
+    @include clamp(2, 1.3em, $strict: true);
+  }
+  p {
+    font-size: .8em;
+    font-weight: 500;
+    color: $dark-gray;
+  }
+  .bottom {
+    margin-top: 1em;
+    @include flex(row, space-between, center, nowrap);
+    h4 {
+      color: $red;
+      font-weight: 700;
+      margin-bottom: 0px;
+    }
+    h6 {
+      color: $gray;
+      text-decoration: line-through;
+      margin-bottom: 0px;
+    }
+    @media (max-width: $bp-xs) {
+      button {
+        font-size: 12px;
+        padding: 0.75em 1em;
+      }
+    }
+  }
+  .btn-fav {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 10;
+    @include flex(row, center, center, nowrap);
+    font-size: 1.5em;
+    transition: $transition;
+    svg {
+      path {
+        stroke-width: 1.5px;
+        fill: transparent;
+        transition: $transition;
+      }
+    }
+    &.checked {
+      color: $red;
+      svg {
+        path {
+          fill: $red;
+        }
+      }
+    }
+  }
+}
+
 footer {
   background-color: $black;
   color: $white;
@@ -1043,6 +1356,21 @@ footer {
           color: $bright-red;
         }
       }
+    }
+  }
+}
+
+.offcanvas-body {
+  .close {
+    display: flex;
+    color: $dark-gray;
+    font-size: 1.75em;
+    transition: $transition;
+    &:hover, &:focus {
+      color: $red;
+    }
+    &:active {
+      color: $bright-red;
     }
   }
 }
