@@ -914,6 +914,21 @@ figure.category {
   padding: 2em;
   border-radius: $radius;
   margin-top: 15%;
+  &.mt-small {
+    margin-top: 10%;
+    @media (max-width: $bp-xl) {
+      margin-top: 4%;
+    }
+    @media (max-width: $bp-md) {
+      margin-top: 1em;
+    }
+    @media (max-width: $bp-sm) {
+      margin-top: 0px;
+    }
+  }
+  @media (max-width: $bp-xl) {
+    margin-top: 0px;
+  }
   @media (max-width: $bp-xs) {
     padding: 1em;
   }
@@ -995,7 +1010,8 @@ figure.category {
         }
       }
     }
-    button {
+    .link {
+      @include flex(column, center, center, nowrap);
       background-color: $blue;
       color: $white;
       border-radius: $radius;
@@ -1234,6 +1250,73 @@ figure.category {
   }
   iframe {
     border-radius: $radius;
+  }
+}
+
+/* Section 11 */
+.sec-11 {
+  .news-list-2 {
+    @include list();
+    li:not(:first-child){
+      margin-top: 3em;
+      @media (max-width: $bp-xs) {
+        margin-top: 2em;
+      }
+    }
+    article {
+      --w: 315px;
+      @media (max-width: $bp-lg) {
+        --w: 270px;
+      }
+      @media (max-width: $bp-md) {
+        --w: 200px;
+      }
+      @media (max-width: $bp-sm) {
+        --w: 150px;
+      }
+      @media (max-width: $bp-xs) {
+        --w: 100px;
+      }
+      figure {
+        position: relative;
+        @include flex(row, flex-start, stretch, nowrap);
+        img {
+          width: var(--w);
+          height: var(--w);
+          object-fit: cover;
+          border-radius: $radius;
+          margin-right: 2.5em;
+          @media (max-width: $bp-md) {
+            margin-right: 1.5em;
+          }
+          @media (max-width: $bp-sm) {
+            margin-right: 1em;
+          }
+          @media (max-width: $bp-xs) {
+            margin-right: .5em;
+          }
+        }
+        figcaption {
+          flex: 1;
+          p {
+            font-size: 1.2em;
+            @include clamp(4, 1.3em, $strict: false);
+            @media (max-width: $bp-sm) {
+              font-size: 1em;
+              @include clamp(3, 1.3em, $strict: false);
+            }
+            @media (max-width: $bp-xs) {
+              font-size: .9em;
+            }
+          }
+          .stretched-link {
+            @media (max-width: $bp-xs) {
+              font-size: .8em;
+            }
+          }
+        }
+      }
+    }
   }
 }
 

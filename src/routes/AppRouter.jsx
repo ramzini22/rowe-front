@@ -1,6 +1,7 @@
 import React from 'react';
 import {createHashRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom';
 import AppLayout from '../layouts/AppLayout';
+import Blog from '../pages/Blog';
 import Catalog from '../pages/Catalog';
 import Contacts from '../pages/Contacts';
 import Home from '../pages/Home';
@@ -12,6 +13,7 @@ const router = createHashRouter(
       <Route index element={<Home />}/>
       <Route path="catalog" element={<Catalog/>} />
       <Route path="contacts" element={<Contacts/>} />
+      <Route path="blog" element={<Blog/>} />
       <Route path="*" element={<NotFound />} />
     </Route>
   )

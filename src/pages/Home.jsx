@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import CategoryCard from '../components/CategoryCard';
 import Rowe from '../assets/imgs/rowe.svg';
-
+import {Link} from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import OfferCard from '../components/OfferCard';
@@ -136,7 +136,7 @@ const Home = () => {
               <NewsPreview img={"imgs/img7.jpg"} title={"Уходит антифриз. Что делать?"}/>
             </li>
             <li className='flex-1'>
-              <button type='button'>Перейти в блог</button>
+              <Link className='link' to='/blog'>Перейти в блог</Link>
             </li>
           </ul>
         </section>
