@@ -106,7 +106,7 @@ const Header = () => {
           </div>
           <Container>
             <nav className='mobile-menu mb-4 mb-sm-5'>
-              <ul>
+              <ul onClick={handleCloseMenu}>
                 <li><Link to='/catalog'>Каталог</Link></li>
                 <li><Link to='/'>Главная</Link></li>
                 <li><Link to='/'>Акции</Link></li>

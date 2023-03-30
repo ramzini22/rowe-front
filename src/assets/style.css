@@ -1482,6 +1482,36 @@ figure.category img.bigger {
   fill: #CC0000;
 }
 
+/* Section 10 */
+.sec-10 h1.inner {
+  font-weight: 400;
+}
+.sec-10 .phone {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+  font-size: 1.2em;
+  font-weight: 700;
+}
+.sec-10 .phone svg path {
+  fill: currentColor;
+}
+.sec-10 .btn-1, .sec-10 .btn-2 {
+  justify-content: flex-start;
+}
+.sec-10 .btn-1 svg, .sec-10 .btn-2 svg {
+  font-size: 1.25em;
+  margin-right: 0.5em;
+}
+.sec-10 .btn-1 svg path, .sec-10 .btn-2 svg path {
+  fill: currentColor;
+}
+.sec-10 iframe {
+  border-radius: 0.5em;
+}
+
 footer {
   position: relative;
   z-index: 1050;
@@ -1739,6 +1769,11 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active {
   border-bottom-right-radius: 1em;
   margin-bottom: 1.5em;
   padding: 1em;
+}
+@media (max-width: 575px) {
+  .mobile-offering {
+    padding: 0.5em 0;
+  }
 }
 .mobile-offering .container {
   display: flex;

@@ -1211,6 +1211,32 @@ figure.category {
   }
 }
 
+/* Section 10 */
+.sec-10 {
+  h1.inner {
+    font-weight: 400;
+  }
+  .phone {
+    @include flex(row, flex-start, center, nowrap);
+    font-size: 1.2em;
+    font-weight: 700;
+    svg {
+      path {fill: currentColor;}
+    }
+  }
+  .btn-1, .btn-2 {
+    justify-content: flex-start;
+    svg {
+      font-size: 1.25em;
+      margin-right: .5em;
+      path {fill: currentColor;}
+    }
+  }
+  iframe {
+    border-radius: $radius;
+  }
+}
+
 footer {
   position: relative;
   z-index: 1050;
@@ -1419,6 +1445,9 @@ footer {
   border-bottom-right-radius: $radius*2;
   margin-bottom: 1.5em;
   padding: 1em;
+  @media (max-width: $bp-xs) {
+    padding: .5em 0;
+  }
   .container {
     @include flex(row, center, center, nowrap);
     img {
