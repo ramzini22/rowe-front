@@ -221,6 +221,8 @@ h6 {
   &-9 {font-weight: 900;}
 }
 .gray {color: $gray;}
+.dark-gray {color: $dark-gray;}
+.title-font {font-family: $title-font;}
 .link {
   color: inherit;
   transition: $transition;
@@ -282,7 +284,6 @@ label {
 select {
   border: none;
 }
-
 .range {
   &-inputs {
     @include flex(row, center, center, nowrap);
@@ -341,7 +342,6 @@ select {
     }
   }
 }
-
 button {
   background: none;
   border: none;
@@ -394,6 +394,23 @@ button {
     &:hover, &:focus, &:active, &.active {
       color: $white;
       background: $black;
+    }
+  }
+}
+
+form.search {
+  @include flex(row, center, stretch, nowrap);
+  input {
+    width: 220px;
+    padding: 0.4em 0.4em 0.4em 1em;
+    border-radius: $radius 0px 0px $radius;
+  }
+  button {
+    padding: 0.5em 1em;
+    border-radius: 0px $radius $radius 0px;
+    svg {
+      font-size: 1.2em;
+      margin-left: 0.3em;
     }
   }
 }
@@ -501,12 +518,13 @@ header {
   @include shadow();
   background-color: #fff;
   height: var(--h-height);
+  position: relative;
+  z-index: 1050;
   @media (max-width: $bp-md) {
     position: fixed;
     top: 0px;
     left: 0px;
     width: 100%;
-    z-index: 100;
   }
   ul {
     li {
@@ -528,22 +546,6 @@ header {
     width: 160px;
     @media (max-width: $bp-xs) {
       width: 100px;
-    }
-  }
-}
-form.search {
-  @include flex(row, center, stretch, nowrap);
-  input {
-    width: 220px;
-    padding: 0.4em 0.4em 0.4em 1em;
-    border-radius: $radius 0px 0px $radius;
-  }
-  button {
-    padding: 0.5em 1em;
-    border-radius: 0px $radius $radius 0px;
-    svg {
-      font-size: 1.2em;
-      margin-left: 0.3em;
     }
   }
 }
@@ -1210,6 +1212,8 @@ figure.category {
 }
 
 footer {
+  position: relative;
+  z-index: 1050;
   background-color: $black;
   color: $white;
   height: var(--f-height);
@@ -1220,7 +1224,6 @@ footer {
     bottom: 0px;
     left: 0px;
     width: 100%;
-    z-index: 100;
     background: $white;
     color: $dark-gray;
     @include shadowMobil();
@@ -1290,17 +1293,15 @@ footer {
       }
     }
   }
-  .dev-link {
-    @include flex(row, center, center, nowrap);
-    width: fit-content;
-    color: $white;
-    margin-left: auto;
-    font-size: .8em;
-    font-weight: 500;
-    svg {
-      font-size: 1.2em;
-      margin-left: .25em;
-    }
+}
+.dev-link {
+  @include flex(row, center, center, nowrap);
+  width: fit-content;
+  color: inherit;
+  font-weight: 500;
+  svg {
+    font-size: 1.2em;
+    margin-left: .25em;
   }
 }
 
@@ -1360,17 +1361,77 @@ footer {
   }
 }
 
-.offcanvas-body {
-  .close {
-    display: flex;
-    color: $dark-gray;
-    font-size: 1.75em;
-    transition: $transition;
-    &:hover, &:focus {
-      color: $red;
+.offcanvas {
+  --bs-offcanvas-height: fit-content;
+  --bs-offcanvas-padding-x: 0px;
+  --bs-offcanvas-padding-y: 0px;
+  --bs-offcanvas-width: 100%;
+  &-top {
+    padding-top: var(--h-height);
+  }
+  &-end, &-start {
+    &.show {
+      padding: var(--h-height) 0 var(--f-height);
     }
-    &:active {
-      color: $bright-red;
+  }
+  &-body {
+    .close {
+      display: flex;
+      color: $dark-gray;
+      font-size: 1.75em;
+      transition: $transition;
+      &:hover, &:focus {
+        color: $red;
+      }
+      &:active {
+        color: $bright-red;
+      }
     }
+  }
+}
+.mobile-menu {
+  background: $white;
+  @include shadowMobil();
+  border-radius: $radius;
+  ul {
+    @include list();
+    padding: 0 2em;
+    @media (max-width: $bp-xs) {
+      padding: 0 1em;
+    }
+    li {
+      padding: 1em 0;
+      border-bottom: 1px solid $light-gray;
+      a {
+        color: #000;
+        font-size: 1.2em;
+        @media (max-width: $bp-xs) {
+          font-size: 1em;
+        }
+      }
+    }
+  }
+}
+.mobile-offering {
+  background-color: $black;
+  color: $white;
+  border-bottom-left-radius: $radius*2;
+  border-bottom-right-radius: $radius*2;
+  margin-bottom: 1.5em;
+  padding: 1em;
+  .container {
+    @include flex(row, center, center, nowrap);
+    img {
+      max-height: 220px;
+      margin-right: 2em;
+      @media (max-width: $bp-sm) {
+        max-height: 180px;
+      }
+      @media (max-width: $bp-xs) {
+        max-height: 43vw;
+        margin-right: 1em;
+      }
+    }
+    h4 {hyphens: none;}
   }
 }

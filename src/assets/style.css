@@ -223,6 +223,14 @@ h6 {
   color: #CCCCCC;
 }
 
+.dark-gray {
+  color: #8F8F8F;
+}
+
+.title-font {
+  font-family: "Bebas";
+}
+
 .link {
   color: inherit;
   transition: 300ms linear;
@@ -413,6 +421,27 @@ button {
   background: #1F1F1F;
 }
 
+form.search {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: nowrap;
+}
+form.search input {
+  width: 220px;
+  padding: 0.4em 0.4em 0.4em 1em;
+  border-radius: 0.5em 0px 0px 0.5em;
+}
+form.search button {
+  padding: 0.5em 1em;
+  border-radius: 0px 0.5em 0.5em 0px;
+}
+form.search button svg {
+  font-size: 1.2em;
+  margin-left: 0.3em;
+}
+
 .flex-1 {
   flex: 1;
 }
@@ -538,6 +567,8 @@ header {
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.05);
   background-color: #fff;
   height: var(--h-height);
+  position: relative;
+  z-index: 1050;
 }
 @media (max-width: 991px) {
   header {
@@ -545,7 +576,6 @@ header {
     top: 0px;
     left: 0px;
     width: 100%;
-    z-index: 100;
   }
 }
 header ul li:not(:first-child) {
@@ -569,27 +599,6 @@ header .logo {
   header .logo {
     width: 100px;
   }
-}
-
-form.search {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: stretch;
-  flex-wrap: nowrap;
-}
-form.search input {
-  width: 220px;
-  padding: 0.4em 0.4em 0.4em 1em;
-  border-radius: 0.5em 0px 0px 0.5em;
-}
-form.search button {
-  padding: 0.5em 1em;
-  border-radius: 0px 0.5em 0.5em 0px;
-}
-form.search button svg {
-  font-size: 1.2em;
-  margin-left: 0.3em;
 }
 
 main {
@@ -1474,6 +1483,8 @@ figure.category img.bigger {
 }
 
 footer {
+  position: relative;
+  z-index: 1050;
   background-color: #1F1F1F;
   color: #FFFFFF;
   height: var(--f-height);
@@ -1490,7 +1501,6 @@ footer {
     bottom: 0px;
     left: 0px;
     width: 100%;
-    z-index: 100;
     background: #FFFFFF;
     color: #8F8F8F;
     box-shadow: 0px 4px 20px rgba(7, 0, 87, 0.1);
@@ -1580,7 +1590,8 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active {
   text-decoration: underline;
   text-decoration-thickness: 1px;
 }
-footer .dev-link {
+
+.dev-link {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -1588,12 +1599,10 @@ footer .dev-link {
   flex-wrap: nowrap;
   width: -moz-fit-content;
   width: fit-content;
-  color: #FFFFFF;
-  margin-left: auto;
-  font-size: 0.8em;
+  color: inherit;
   font-weight: 500;
 }
-footer .dev-link svg {
+.dev-link svg {
   font-size: 1.2em;
   margin-left: 0.25em;
 }
@@ -1669,6 +1678,18 @@ footer .dev-link svg {
   color: #E4170F;
 }
 
+.offcanvas {
+  --bs-offcanvas-height: fit-content;
+  --bs-offcanvas-padding-x: 0px;
+  --bs-offcanvas-padding-y: 0px;
+  --bs-offcanvas-width: 100%;
+}
+.offcanvas-top {
+  padding-top: var(--h-height);
+}
+.offcanvas-end.show, .offcanvas-start.show {
+  padding: var(--h-height) 0 var(--f-height);
+}
 .offcanvas-body .close {
   display: flex;
   color: #8F8F8F;
@@ -1680,4 +1701,68 @@ footer .dev-link svg {
 }
 .offcanvas-body .close:active {
   color: #E4170F;
+}
+
+.mobile-menu {
+  background: #FFFFFF;
+  box-shadow: 0px 4px 20px rgba(7, 0, 87, 0.1);
+  border-radius: 0.5em;
+}
+.mobile-menu ul {
+  list-style: none;
+  padding-left: 0px;
+  padding: 0 2em;
+}
+@media (max-width: 575px) {
+  .mobile-menu ul {
+    padding: 0 1em;
+  }
+}
+.mobile-menu ul li {
+  padding: 1em 0;
+  border-bottom: 1px solid #F3F3F3;
+}
+.mobile-menu ul li a {
+  color: #000;
+  font-size: 1.2em;
+}
+@media (max-width: 575px) {
+  .mobile-menu ul li a {
+    font-size: 1em;
+  }
+}
+
+.mobile-offering {
+  background-color: #1F1F1F;
+  color: #FFFFFF;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  margin-bottom: 1.5em;
+  padding: 1em;
+}
+.mobile-offering .container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.mobile-offering .container img {
+  max-height: 220px;
+  margin-right: 2em;
+}
+@media (max-width: 767px) {
+  .mobile-offering .container img {
+    max-height: 180px;
+  }
+}
+@media (max-width: 575px) {
+  .mobile-offering .container img {
+    max-height: 43vw;
+    margin-right: 1em;
+  }
+}
+.mobile-offering .container h4 {
+  -webkit-hyphens: none;
+          hyphens: none;
 }/*# sourceMappingURL=style.css.map */

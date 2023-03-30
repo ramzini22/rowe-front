@@ -41,7 +41,7 @@ const Catalog = () => {
           <h1 className='inner'>Для легковых авто</h1>
           <Row className='gx-4 gx-xl-5'>
             <Col xs={12} lg={3}>
-              <Offcanvas show={showFilters} onHide={handleCloseFilters} responsive="lg">
+              <Offcanvas show={showFilters} placement={'start'} onHide={handleCloseFilters} responsive="lg">
                 <Offcanvas.Body>
                   <div className="d-flex justify-content-between align-items-center d-lg-none mb-4">
                     <h3 className='mb-0'>Фильтры</h3>

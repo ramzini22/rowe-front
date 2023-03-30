@@ -1,58 +1,127 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import Container from 'react-bootstrap/Container';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 import {Link, NavLink} from 'react-router-dom';
+import useIsMobile from '../hooks/isMobile';
+import useOnClickOutside from '../hooks/useOnClickOutside';
 import Logo from '../assets/imgs/logo_kzn.svg';
 import SearchIcon from './svg/SearchIcon';
+import CloseIcon from './svg/CloseIcon';
 import SmartphoneIcon from './svg/SmartphoneIcon';
-import useIsMobile from '../hooks/isMobile';
 import Menu from '../assets/imgs/MenuIcon.svg';
+import Plaix from './svg/Plaix';
 
 const Header = () => {
   const {mobile} = useIsMobile('991px');
+  const ref = useRef();
+  const ref2 = useRef();
+
+  const [showSearch, setShowSearch] = useState(false);
+  const handleCloseSearch = () => setShowSearch(false);
+  const handleShowSearch = () => setShowSearch(true);
+
+  const [showMenu, setShowMenu] = useState(false);
+  const handleCloseMenu = () => setShowMenu(false);
+  const handleShowMenu = () => setShowMenu(true);
+
+  useOnClickOutside(ref, handleCloseMenu)
+  useOnClickOutside(ref2, handleCloseSearch)
 
   return (
-    <header>
-      <Container className='h-100 d-flex justify-content-between align-items-center'>
-        <Link to="/"><img src={Logo} alt="ROWE oil Kazan" className='logo'/></Link>
-        {
-          (!mobile) &&
-          <>
-            <nav>
-              <ul className='list-unstyled d-flex align-items-center'>
-                <li><NavLink to="/">Главная</NavLink></li>
-                <li><NavLink to="/about">О бренде</NavLink></li>
-                <li><NavLink to="/contacts">Контакты</NavLink></li>
-                <li><NavLink to="/catalog" className='btn-1'>Каталог</NavLink></li>
+    <>
+      <header>
+        <Container className='h-100 d-flex justify-content-between align-items-center'>
+          <Link to="/"><img src={Logo} alt="ROWE oil Kazan" className='logo'/></Link>
+          {
+            (!mobile) &&
+            <>
+              <nav>
+                <ul className='list-unstyled d-flex align-items-center'>
+                  <li><NavLink to="/">Главная</NavLink></li>
+                  <li><NavLink to="/about">О бренде</NavLink></li>
+                  <li><NavLink to="/contacts">Контакты</NavLink></li>
+                  <li><NavLink to="/catalog" className='btn-1'>Каталог</NavLink></li>
+                </ul>
+              </nav>
+              <a href="tel:+7-987-212-60-76" className='link fs-12 d-flex align-items-center'>
+                <SmartphoneIcon className="fs-13 me-1"/>
+                <span>+7-987-212-60-76</span>
+              </a>
+            </>
+          }
+          <form action="" className='search d-none d-xxl-flex'>
+            <input type="search" placeholder='Поиск...'/>
+            <button type='submit' className='btn-1'>
+              <span>Найти</span>
+              <SearchIcon/>
+            </button>
+          </form>
+
+          <div className="d-flex align-items-center d-xxl-none">
+            <button type='button' onClick={(showSearch)?handleCloseSearch:handleShowSearch} className='d-flex gray fs-15'>
+              {
+                (showSearch)
+                ? <CloseIcon/>
+                : <SearchIcon/>
+              }
+            </button>
+            {
+              (mobile) &&
+              <button type='button' onClick={(showMenu)?handleCloseMenu:handleShowMenu} className='fs-18 d-flex d-xxl-none ms-4'>
+                {
+                  (showMenu)
+                  ? <CloseIcon className='dark-gray'/>
+                  : <img src={Menu} alt="menu icon" />
+                }
+              </button>
+            }
+          </div>
+        </Container>
+      </header>
+
+      <Offcanvas show={showSearch} onHide={handleCloseSearch} placement={'top'}>
+        <Offcanvas.Body ref={ref2} className="py-4 py-md-5">
+          <Container>
+            <form action="" className='search w-100'>
+              <input type="search" placeholder='Поиск...' className='flex-1'/>
+              <button type='submit' className='btn-1'>
+                <span>Найти</span>
+                <SearchIcon/>
+              </button>
+            </form>
+          </Container>
+        </Offcanvas.Body>
+      </Offcanvas>
+
+      <Offcanvas show={showMenu} onHide={handleCloseMenu} placement={'end'}>
+        <Offcanvas.Body ref={ref}>
+          <div className="mobile-offering">
+            <Container>
+              <img src="imgs/img13.png" alt="моторное масло HIGHTEC GTS SPEZIAL SAE 20W-20" />
+              <div>
+                <h2 className='title-font fw-4'>Выгоднее на 25%</h2>
+                <h4>моторное&nbsp;масло HIGHTEC GTS SPEZIAL&nbsp;SAE&nbsp;20W&#8209;20</h4>
+              </div>
+            </Container>
+          </div>
+          <Container>
+            <nav className='mobile-menu mb-4 mb-sm-5'>
+              <ul>
+                <li><Link to='/catalog'>Каталог</Link></li>
+                <li><Link to='/'>Главная</Link></li>
+                <li><Link to='/'>Акции</Link></li>
+                <li><Link to='/about'>О бренде</Link></li>
+                <li><Link to='/delivery'>Оплата и доставка</Link></li>
               </ul>
             </nav>
-            <a href="tel:+7-987-212-60-76" className='link fs-12 d-flex align-items-center'>
-              <SmartphoneIcon className="fs-13 me-1"/>
-              <span>+7-987-212-60-76</span>
+            <a href="/" className='dev-link'>
+              <span>Создано в</span>
+              <Plaix/>
             </a>
-          </>
-        }
-        <form action="" className='search d-none d-xxl-flex'>
-          <input type="search" placeholder='Поиск...'/>
-          <button type='submit' className='btn-1'>
-            <span>Найти</span>
-            <SearchIcon/>
-          </button>
-        </form>
-
-        <div className="d-flex align-items-center d-xxl-none">
-          <button type='button' className='gray fs-15'>
-            <SearchIcon/>
-          </button>
-          {
-            (mobile) &&
-            <button type='button' className='gray fs-15 d-flex d-xxl-none ms-4'>
-              <img src={Menu} alt="menu icon" />
-            </button>
-          }
-        </div>
-        
-      </Container>
-    </header>
+          </Container>
+        </Offcanvas.Body>
+      </Offcanvas>
+    </>
   );
 };
 

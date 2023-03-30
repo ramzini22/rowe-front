@@ -90,7 +90,7 @@ const Footer = () => {
               <Link to="/" className='fs-08 fw-5'>Политика конфиденциальности</Link>
             </Col>
             <Col md={6}>
-              <a href="/" className='dev-link'>
+              <a href="/" className='dev-link fs-08 ms-auto'>
                 <span>Создано в</span>
                 <Plaix/>
               </a>
