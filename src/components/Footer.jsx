@@ -61,19 +61,19 @@ const Footer = () => {
             <Col md={2}>
               <ul>
                 <li><Link to='/'>Главная</Link></li>
-                <li><Link to='/'>Каталог</Link></li>
-                <li><Link to='/'>Доставка и оплата</Link></li>
-                <li><Link to='/'>О бренде</Link></li>
-                <li><Link to='/'>Контакты</Link></li>
+                <li><Link to='/catalog'>Каталог</Link></li>
+                <li><Link to='/delivery'>Доставка и оплата</Link></li>
+                <li><Link to='/about'>О бренде</Link></li>
+                <li><Link to='/contacts'>Контакты</Link></li>
               </ul>
             </Col>
             <Col md={4}>
               <ul>
-                <li><Link to='/'>Гоночные масла</Link></li>
-                <li><Link to='/'>Для легковых авто</Link></li>
-                <li><Link to='/'>Для коммерческого транспорта</Link></li>
-                <li><Link to='/'>Индустрия</Link></li>
-                <li><Link to='/'>Мотоциклы и водный транспорт</Link></li>
+                <li><Link to='/catalog'>Гоночные масла</Link></li>
+                <li><Link to='/catalog'>Для легковых авто</Link></li>
+                <li><Link to='/catalog'>Для коммерческого транспорта</Link></li>
+                <li><Link to='/catalog'>Индустрия</Link></li>
+                <li><Link to='/catalog'>Мотоциклы и водный транспорт</Link></li>
               </ul>
             </Col>
             <Col md={6}>
