@@ -3,11 +3,14 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import NewsPreview2 from '../components/NewsPreview2';
+import NavBreadcrumbs from '../components/NavBreadcrumbs';
 
 const Blog = () => {
   return (
     <main>
       <Container>
+        <NavBreadcrumbs/>
+
         <section className='sec-5 mt-small mb-custom'>
           <Row>
             <Col xs={12} md={7}>

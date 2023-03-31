@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import FavoritesIcon from './svg/FavoritesIcon';
 
 const ProductCard = (props) => {
@@ -6,8 +7,8 @@ const ProductCard = (props) => {
 
   return (
     <div className="product-card">
-      <img src={props.img} alt={props.title}/>
-      <h3>{props.title}</h3>
+      <Link to="/catalog/product"><img src={props.img} alt={props.title}/></Link>
+      <h3><Link to="/catalog/product">{props.title}</Link></h3>
       <div className='d-sm-flex justify-content-between align-items-center'>
         <p>Фасовка: 1 л; 5 л</p>
         <p>Вязкость: 10W-60</p>

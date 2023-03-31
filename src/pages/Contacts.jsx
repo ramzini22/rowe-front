@@ -5,14 +5,17 @@ import Col from 'react-bootstrap/Col';
 import ContactsFillIcon from '../components/svg/ContactsFillIcon';
 import Wapp from '../components/svg/Wapp';
 import useIsMobile from '../hooks/isMobile';
+import NavBreadcrumbs from '../components/NavBreadcrumbs';
 
 const Contacts = () => {
   const {mobile} = useIsMobile('991px');
 
   return (
     <main>
-      <section className='sec-10'>
-        <Container>
+      <Container>
+        <NavBreadcrumbs/>
+
+        <section className='sec-10'>
           <Row className='gx-4 gx-lg-5'>
             <Col xs={12} lg={4}>
               <h1 className='inner'>ООО “РавеоилКЗН” </h1>
@@ -41,8 +44,8 @@ const Contacts = () => {
               </Col>
             }
           </Row>
-        </Container>
-      </section>
+        </section>
+      </Container>
     </main>
   );
 };
