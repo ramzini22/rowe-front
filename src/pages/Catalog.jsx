@@ -40,7 +40,7 @@ const Catalog = () => {
         <section className='sec-9 mb-sm-4 mb-md-5'>
           <h1 className='inner'>Для легковых авто</h1>
           <Row className='gx-4 gx-xl-5'>
-            <Col xs={12} lg={3}>
+            <Col xs={12} lg={3} className="pe-xxl-5">
               <Offcanvas show={showFilters} placement={'start'} onHide={handleCloseFilters} responsive="lg">
                 <Offcanvas.Body>
                   <div className="d-flex justify-content-between align-items-center d-lg-none mb-4">
@@ -49,7 +49,7 @@ const Catalog = () => {
                       <CloseIcon/>
                     </button>
                   </div>
-                  <form className="filter">
+                  <form className="filter w-100">
                     <select className='d-none d-lg-block mb-4'>
                       <option value="">Сначала дешёвые</option>
                       <option value="">Сначала дорогие</option>

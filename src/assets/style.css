@@ -357,6 +357,21 @@ select {
   height: 3px;
   background-color: #CCCCCC;
 }
+.range-slider-rail .min, .range-slider-rail .max {
+  position: absolute;
+  top: 50%;
+  color: #CCCCCC;
+  font-size: 0.8em;
+  line-height: 1em;
+  height: 1em;
+  margin-top: -0.5em;
+}
+.range-slider-rail .min {
+  right: 101%;
+}
+.range-slider-rail .max {
+  left: 101%;
+}
 .range-slider-track {
   position: absolute;
   top: 50%;
@@ -369,7 +384,7 @@ select {
 .range-slider-handle, .range-slider-handle-2, .range-slider-handle-1 {
   position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
   width: 0.8em;
   height: 0.8em;
   border-radius: 50%;
@@ -386,10 +401,10 @@ select {
   background-color: #CC0000;
 }
 .range-slider-handle-1 {
-  left: 10%;
+  left: 0%;
 }
 .range-slider-handle-2 {
-  left: 50%;
+  left: 0%;
 }
 
 button {

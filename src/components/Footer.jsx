@@ -109,7 +109,7 @@ const Footer = () => {
         <li>
           <Link to="/cart">
             <CartIcon/>
-            <span class="count">2</span>
+            <span className="count">2</span>
           </Link>
         </li>
         <li>
