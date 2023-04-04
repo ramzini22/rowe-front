@@ -39,7 +39,7 @@ const Contacts = () => {
             </Col>
             
             <Col xs={12} lg={8}>
-              <iframe title="map" src="https://yandex.ru/map-widget/v1/?um=constructor%3A88fb796c1b3edb68fae80f64766a89d0d70d232b285986860bd2460ed54aba9d&amp;source=constructor" width="100%" height="400" frameborder="0"></iframe>
+              <iframe title="map" src="https://yandex.ru/map-widget/v1/?um=constructor%3A88fb796c1b3edb68fae80f64766a89d0d70d232b285986860bd2460ed54aba9d&amp;source=constructor" width="100%" height="400" frameBorder="0"></iframe>
               {
                 (mobile) &&
                 <ul className='list-unstyled'>

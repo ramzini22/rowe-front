@@ -152,7 +152,7 @@ const Home = () => {
             </Col>
             <Col className="ps-lg-5 mt-4 mt-md-5 mt-lg-0">
               <div className="video-wrap">
-                <iframe src="https://www.youtube.com/embed/7o4j42V21qs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/7o4j42V21qs" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
               </div>
             </Col>
           </Row>

@@ -626,6 +626,11 @@ header {
 header ul li:not(:first-child) {
   margin-left: 2.5em;
 }
+@media (max-width: 575px) {
+  header ul li:not(:first-child) {
+    margin-left: 1.5em;
+  }
+}
 header ul li a:not(.btn-1) {
   font-size: 1em;
   font-weight: 500;

@@ -21,11 +21,14 @@ const Header = () => {
   const handleShowSearch = () => setShowSearch(true);
 
   const [showMenu, setShowMenu] = useState(false);
-  const handleCloseMenu = () => setShowMenu(false);
+  const handleCloseMenu = () =>  setShowMenu(false);
   const handleShowMenu = () => setShowMenu(true);
 
   useOnClickOutside(ref, handleCloseMenu)
   useOnClickOutside(ref2, handleCloseSearch)
+ 
+
+  console.log('showMenu='+showMenu)
 
   return (
     <>
@@ -57,25 +60,25 @@ const Header = () => {
             </button>
           </form>
 
-          <div className="d-flex align-items-center d-xxl-none">
-            <button type='button' onClick={(showSearch)?handleCloseSearch:handleShowSearch} className='d-flex gray fs-15'>
+          <ul className="list-unstyled d-flex align-items-center d-xxl-none">
+            <li>
               {
                 (showSearch)
-                ? <CloseIcon/>
-                : <SearchIcon/>
+                ? <button type='button' onClick={handleCloseSearch} className='d-flex gray fs-15'><CloseIcon/></button>
+                : <button type='button' onClick={handleShowSearch} className='d-flex gray fs-15'><SearchIcon/></button>
               }
-            </button>
+            </li>
             {
               (mobile) &&
-              <button type='button' onClick={(showMenu)?handleCloseMenu:handleShowMenu} className='fs-18 d-flex d-xxl-none ms-4'>
+              <li>
                 {
                   (showMenu)
-                  ? <CloseIcon className='dark-gray'/>
-                  : <img src={Menu} alt="menu icon" />
+                  ? <button type='button' onClick={handleCloseMenu} className='fs-18 d-flex d-xxl-none'><CloseIcon className='dark-gray'/></button>
+                  : <button type='button' onClick={handleShowMenu} className='fs-18 d-flex d-xxl-none'><img src={Menu} alt="menu icon" /></button>
                 }
-              </button>
+              </li>
             }
-          </div>
+          </ul>
         </Container>
       </header>
 
