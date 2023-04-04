@@ -1262,12 +1262,21 @@ figure.category {
 /* Section 10 */
 .sec-10 {
   h1.inner {
-    font-weight: 400;
+    @media (max-width: $bp-lg) {
+      font-weight: 400;
+    }
+  }
+  h3 {
+    @media (max-width: $bp-lg) {
+      font-size: 1.4em;
+      font-weight: 600;
+    }
+    @media (max-width: $bp-xs) {
+      font-size: 1.2em;
+    }
   }
   .phone {
     @include flex(row, flex-start, center, nowrap);
-    font-size: 1.2em;
-    font-weight: 700;
     svg {
       path {fill: currentColor;}
     }

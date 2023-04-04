@@ -1557,8 +1557,21 @@ figure.category img.bigger {
 }
 
 /* Section 10 */
-.sec-10 h1.inner {
-  font-weight: 400;
+@media (max-width: 1199px) {
+  .sec-10 h1.inner {
+    font-weight: 400;
+  }
+}
+@media (max-width: 1199px) {
+  .sec-10 h3 {
+    font-size: 1.4em;
+    font-weight: 600;
+  }
+}
+@media (max-width: 575px) {
+  .sec-10 h3 {
+    font-size: 1.2em;
+  }
 }
 .sec-10 .phone {
   display: flex;
@@ -1566,8 +1579,6 @@ figure.category img.bigger {
   justify-content: flex-start;
   align-items: center;
   flex-wrap: nowrap;
-  font-size: 1.2em;
-  font-weight: 700;
 }
 .sec-10 .phone svg path {
   fill: currentColor;
