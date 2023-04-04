@@ -9,6 +9,7 @@ import Delivery from '../pages/Delivery';
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
 import Product from '../pages/Product';
+import Article from '../pages/Article';
 
 const router = createHashRouter(
   createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createHashRouter(
       <Route path="delivery" element={<Delivery/>} />
       <Route path="contacts" element={<Contacts/>} />
       <Route path="blog" element={<Blog/>} />
+      <Route path="blog/article" element={<Article/>} />
       <Route path="*" element={<NotFound />} />
     </Route>
   )

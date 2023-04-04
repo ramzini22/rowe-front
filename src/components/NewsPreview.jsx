@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 const NewsPreview = (props) => {
   return (
@@ -6,7 +7,7 @@ const NewsPreview = (props) => {
       <figure>
         <img src={props.img} alt={props.title} />
         <figcaption>
-          <h5>{props.title}</h5>
+          <h5><Link to="/blog/article" className='stretched-link'>{props.title}</Link></h5>
         </figcaption>
       </figure>
     </article>

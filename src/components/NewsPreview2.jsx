@@ -9,7 +9,7 @@ const NewsPreview2 = (props) => {
         <figcaption>
           <h4 className='fw-7'>{props.title}</h4>
           <p>{props.text}</p>
-          <Link to='/' className='stretched-link btn-3 mt-2 mt-sm-3 mt-md-4 mt-lg-5'>Подробнее</Link>
+          <Link to='/blog/article' className='stretched-link btn-3 mt-2 mt-sm-3 mt-md-4 mt-lg-5'>Подробнее</Link>
         </figcaption>
       </figure>
     </article>
