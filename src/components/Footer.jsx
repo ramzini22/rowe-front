@@ -11,10 +11,12 @@ import PersonIcon from './svg/PersonIcon';
 import CatalogIcon from './svg/CatalogIcon';
 import HomeIcon from './svg/HomeIcon';
 import ContactsIcon from './svg/ContactsIcon';
+import {useAppSelector} from "../store";
 
 const Footer = () => {
   const {mobile} = useIsMobile('991px')
-  
+  const {favorites, shopping} = useAppSelector(state => state?.user?.user)
+
   return (
     <>
     <footer>
@@ -104,17 +106,15 @@ const Footer = () => {
         <li>
           <Link to="/favorites">
             <FavoritesIcon/>
+            <div style={{marginLeft:'-2px', marginBottom:'30px', position:'relative'}}>
+              <span className="count">{favorites?.length}</span>
+            </div>
           </Link>
         </li>
         <li>
           <Link to="/cart">
             <CartIcon/>
-            <span className="count">2</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/profile">
-            <PersonIcon/>
+            <span className="count">{shopping?.length}</span>
           </Link>
         </li>
       </ul>

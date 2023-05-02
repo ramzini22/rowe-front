@@ -26,9 +26,6 @@ const Header = () => {
 
   useOnClickOutside(ref, handleCloseMenu)
   useOnClickOutside(ref2, handleCloseSearch)
- 
-
-  console.log('showMenu='+showMenu)
 
   return (
     <>
