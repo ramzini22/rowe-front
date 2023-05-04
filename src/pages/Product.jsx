@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -8,16 +8,45 @@ import useIsMobile from '../hooks/isMobile';
 import FavoritesIcon from '../components/svg/FavoritesIcon';
 import {Link, useParams} from 'react-router-dom';
 import {useAppAction, useAppSelector} from "../store";
+import {GetOilsByIds, GetOneOil} from "../services/Oils";
+import FunctionForPrice from "../helpers/FunctionForPrice";
+
+const o = {
+    "id": 1,
+    "name": "HIGHTEC GTS SPEZIAL SAE 20W-50",
+    "price": 890,
+    "article": 3630477,
+    "image": "products/asd9f91asf-img1.png",
+    optionIds: [
+        {name: 'Серия продуктов', value: 'Hightec'},
+        {name: 'Соответствия', value: 'API SF/CD,CCMC D2/G2,MIL-L-2104D,SAE 20W-50'},
+        {name: 'Вязкость по SAE', value: '20W-50'},
+        {name: 'Вид масла', value: 'минеральное'},
+        {name: 'Тип двигателя', value: 'бензиновый, дизельный'},
+    ]
+
+}
 
 const Product = () => {
     const {mobile} = useIsMobile('991px');
     const {id} = useParams()
     const {favorites, shopping} = useAppSelector(state => state?.user?.user)
     const {ChangeFavorites, ChangeShopping} = useAppAction()
+    const categories = useAppSelector(state => state.app.categories)
+    const [oil, setOil] = useState(o)
+    const fav = favorites?.find(el => el == id)
+    const shop = shopping?.find(el => el == id)
 
-    const fav = favorites?.find(el=>el==id)
-    const shop = shopping?.find(el=>el==id)
-
+    useEffect(() => {
+        GetOilsByIds([id]).then(res=>{
+            if(res){
+                const [oil] = res
+                if(oil){
+                    setOil(oil)
+                }
+            }
+        })
+    }, [])
     return (
         <main>
             <Container>
@@ -27,12 +56,12 @@ const Product = () => {
                     (!mobile) &&
                     <section className='sec-8 mb-custom'>
                         <ul>
-                            <li><CategoryPill img={"../../imgs/img2.jpg"} title={'Для легковых авто'}/></li>
-                            <li><CategoryPill img={"../../imgs/img3.jpg"} title={'Гоночные масла'}/></li>
-                            <li><CategoryPill img={"../../imgs/img4.jpg"} title={'Спецтехника'}/></li>
-                            <li><CategoryPill img={"../../imgs/img5.jpg"} title={'Мотоциклы и водный транспорт'}/></li>
-                            <li><CategoryPill img={"../../imgs/img6.jpg"} title={'Для коммерческого транспорта'}/></li>
-                            <li><CategoryPill imgClassName={'bg'} img={"../../imgs/img7.png"} title={'Индустрия'}/></li>
+                            {categories?.map((element, index) =>
+                                <li key={index}>
+                                    <li><CategoryPill {...element} /></li>
+                                </li>
+                            )}
+
                         </ul>
                     </section>
                 }
@@ -43,13 +72,15 @@ const Product = () => {
                             <img src="../../imgs/img13.png" alt="HIGHTEC GTS SPEZIAL SAE 20W-50"/>
                         </Col>
                         <Col sm={8} lg={5} xxl={6}>
-                            <h1 className='inner'>HIGHTEC GTS SPEZIAL SAE 20W-50</h1>
-                            <small className='fw-5'>Артикул: 3630477</small>
+                            <h1 className='inner'>{oil?.name}</h1>
+                            <small className='fw-5'>Артикул: {oil?.article}</small>
                             <ul className='specification list-unstyled'>
+                                {oil?.optionIds?.map((element, index) =>
+                                    <li key={index}><strong
+                                        className='me-2 me-xl-3'>{element?.name}</strong>{element?.value}</li>
+                                )}
                                 <li><strong className='me-2 me-xl-3'>Серия продуктов</strong> Hightec</li>
-                                <li><strong className='me-2 me-xl-3'>Соответствия</strong> API SF/CD,CCMC
-                                    D2/G2,MIL-L-2104D,SAE 20W-50
-                                </li>
+                                <li><strong className='me-2 me-xl-3'>Соответствия</strong> API SF/CD,CCMC D2/G2,MIL-L-2104D,SAE 20W-50</li>
                                 <li><strong className='me-2 me-xl-3'>Вязкость по SAE</strong> 20W-50</li>
                                 <li><strong className='me-2 me-xl-3'>Вид масла</strong> минеральное</li>
                                 <li><strong className='me-2 me-xl-3'>Тип двигателя</strong> бензиновый, дизельный</li>
@@ -79,12 +110,12 @@ const Product = () => {
                             </ul>
                             <div className="box mt-4">
                                 <div>
-                                    <h4>930 ₽</h4>
-                                    <h6>1 140 ₽</h6>
+                                    <h4>{FunctionForPrice(oil?.price)+' ₽'}</h4>
+                                    <h6>{oil?.priceWithoutDiscount && FunctionForPrice(oil?.priceWithoutDiscount)+' ₽'}</h6>
                                 </div>
-                                <button type='button' className={`btn-2 ${shop?'btn2-active':''}`}
-                                        onClick={()=>ChangeShopping(id)}>
-                                    {shop?'В корзине':'В корзину'}
+                                <button type='button' className={`btn-2 ${shop ? 'btn2-active' : ''}`}
+                                        onClick={() => ChangeShopping(id)}>
+                                    {shop ? 'В корзине' : 'В корзину'}
                                 </button>
                                 <button type='button' className={fav ? 'btn-fav checked' : 'btn-fav'}
                                         onClick={() => ChangeFavorites(id)}>

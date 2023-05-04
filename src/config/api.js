@@ -19,9 +19,14 @@ export async function Api(url='', {headers, body, method}={headers:null, body:nu
 }
 
 const apiRoutes = {
-    //auth
+    // types of oil
     GET_ALL_CATEGORY:'category',
+    GET_ALL_SPECIFICATION:'specification/byCategory',
+    GET_ALL_PARAMETRS:'parameter/byCategoryWithOptions',
 
+    // Oils
+    GET_ALL_OILS:'product/paginate',
+    GET_OILS_DY_IDS:'product/byIds'
 }
 
 export { BASE_API_URL, BASE_URL }

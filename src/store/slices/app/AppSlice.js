@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {GetOptionsWithParams} from '../../../services/Options'
+import {GetOptionsWithParams, GetSpecification} from '../../../services/Options'
 
 const c=[
     {
@@ -59,7 +59,7 @@ const AppSlice = createSlice({
             state.categories=initialState.categories
            // state.categories = action.payload
         })
-    }
+    },
 })
 export const AppActions= AppSlice.actions;
 export const AppReducers= AppSlice.reducer;

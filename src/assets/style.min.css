@@ -425,9 +425,9 @@ select {
 .range-slider-track {
     position: absolute;
     top: 50%;
-    left: 10%;
-    transform: translateY(-50%);
     width: 40%;
+    transition: 300ms linear;
+    transform: translateY(-50%);
     height: 3px;
     background-color: #c00
 }
@@ -519,7 +519,7 @@ button {
     border: 1px solid #1f1f1f
 }
 
-.btn-3:hover, .btn-3:focus, .btn-3:active, .btn-3.active {
+.btn-3:hover, .btn-3:active, .btn-3.active {
     color: #fff;
     background: #1f1f1f
 }
