@@ -1,42 +1,9 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {GetOptionsWithParams, GetSpecification} from '../../../services/Options'
-
-const c=[
-    {
-        id:1,
-        image:"imgs/img2.jpg",
-        title:'Для легковых авто',
-    },
-    {
-        id:2,
-        image:"imgs/img3.jpg",
-        title:'Гоночные масла',
-    },
-    {
-        id:3,
-        image:"imgs/img4.jpg",
-        title:'Спецтехника',
-    },
-    {
-        id:4,
-        image:"imgs/img5.jpg",
-        title:'Мотоциклы и водный транспорт',
-    },
-    {
-        id:5,
-        image:"imgs/img6.jpg",
-        title:'Для коммерческого транспорта',
-    },
-    {
-        id:6,
-        image:"imgs/img7.jpg",
-        title:'Индустрия',
-        imgClassName:'bg'
-    },]
+import {GetOptionsWithParams} from '../../../services/Options'
 
 const initialState={
     notFound:false,
-    categories:c,
+    categories:[],
     fingerprint:null,
     alertSlice:null
 }
@@ -56,8 +23,7 @@ const AppSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(GetOptionsWithParams.fulfilled, (state, action) => {
-            state.categories=initialState.categories
-           // state.categories = action.payload
+           state.categories = action.payload
         })
     },
 })

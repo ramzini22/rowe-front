@@ -27,7 +27,7 @@ const Catalog = () => {
     const [categoriesList, setCategoriesList] = useState()
     const [parametrList, setParametrList] = useState()
     const idCategory = state?.idCategory ? state?.idCategory : 1
-    const nameCategory = categories?.find(element => element.id == idCategory)?.title
+    const nameCategory = categories?.find(element => element.id == idCategory)?.name
     const [filter, setFilter] = useReducer((state, newState) => ({...state, ...newState}),
         {
             page: 1, limit: 12, specifications: [], options: []
@@ -72,7 +72,7 @@ const Catalog = () => {
     return (
         <main>
             <Container>
-                <NavBreadcrumbs/>
+                <NavBreadcrumbs pageName={'Каталог'}/>
 
                 {
                     (!mobile) &&

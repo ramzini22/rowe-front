@@ -5,44 +5,17 @@ import Col from 'react-bootstrap/Col';
 import NavBreadcrumbs from '../components/NavBreadcrumbs';
 import CategoryPill from '../components/CategoryPill';
 import useIsMobile from '../hooks/isMobile';
-
-const c = [
-    {
-        image: "imgs/img2.jpg",
-        title: 'Для легковых авто',
-    },
-    {
-        image: "imgs/img3.jpg",
-        title: 'Гоночные масла',
-    },
-    {
-        image: "imgs/img4.jpg",
-        title: 'Спецтехника',
-    },
-    {
-        image: "imgs/img5.jpg",
-        title: 'Мотоциклы и водный транспорт',
-    },
-    {
-        image: "imgs/img6.jpg",
-        title: 'Для коммерческого транспорта',
-    },
-    {
-        image: "imgs/img7.jpg",
-        title: 'Индустрия',
-        imgClassName: 'bg'
-    },
-]
+import {useAppSelector} from "../store";
 
 const About = () => {
 
     const {mobile} = useIsMobile('991px');
-    const [categories, setCategories] = useState(c)
+    const categories = useAppSelector(state => state.app.categories)
 
     return (
         <main>
             <Container>
-                <NavBreadcrumbs/>
+                <NavBreadcrumbs pageName={'О брэнде'}/>
             </Container>
 
             <section className='sec-14 mb-custom'>

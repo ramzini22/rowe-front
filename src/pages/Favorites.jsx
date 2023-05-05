@@ -9,12 +9,14 @@ import {GetOilsByIds} from "../services/Oils";
 const Favorites = () => {
     const {favorites, shopping} = useAppSelector(state => state?.user?.user)
     const [oils, setOils] = useState([])
+
     useEffect(() => {
         GetOilsByIds(favorites)
             .then(res => {
                 if (res) setOils(res)
             })
     }, [favorites])
+
     if (favorites?.length)
         return (
             <main>

@@ -9,7 +9,7 @@ const Blog = () => {
   return (
     <main>
       <Container>
-        <NavBreadcrumbs/>
+        <NavBreadcrumbs pageName={'Блог'}/>
 
         <section className='sec-5 mt-small mb-custom'>
           <Row>

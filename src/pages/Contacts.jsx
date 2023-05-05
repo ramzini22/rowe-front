@@ -13,7 +13,7 @@ const Contacts = () => {
   return (
     <main>
       <Container>
-        <NavBreadcrumbs/>
+        <NavBreadcrumbs pageName={'Контакты'}/>
 
         <section className='sec-10 mb-5'>
           <Row className='gx-4 gx-xl-5'>

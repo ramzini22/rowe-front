@@ -10,6 +10,7 @@ import {Link, useParams} from 'react-router-dom';
 import {useAppAction, useAppSelector} from "../store";
 import {GetOilsByIds, GetOneOil} from "../services/Oils";
 import FunctionForPrice from "../helpers/FunctionForPrice";
+import {checkPhotoPath} from "../helpers/checkPhotoPath";
 
 const o = {
     "id": 1,
@@ -50,7 +51,7 @@ const Product = () => {
     return (
         <main>
             <Container>
-                <NavBreadcrumbs/>
+                <NavBreadcrumbs pageName={'Страница продукта'}/>
 
                 {
                     (!mobile) &&
@@ -69,7 +70,7 @@ const Product = () => {
                 <section className='sec-12 mb-sm-4 mb-md-5'>
                     <Row className='g-4 g-xxl-5'>
                         <Col sm={4} lg={3}>
-                            <img src="../../imgs/img13.png" alt="HIGHTEC GTS SPEZIAL SAE 20W-50"/>
+                            <img src={checkPhotoPath(oil?.image)} alt={oil?.title}/>
                         </Col>
                         <Col sm={8} lg={5} xxl={6}>
                             <h1 className='inner'>{oil?.name}</h1>

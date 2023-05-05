@@ -50,12 +50,6 @@ const Footer = () => {
                                             <span>Контакты</span>
                                         </NavLink>
                                     </li>
-                                    <li>
-                                        <NavLink to="/profile">
-                                            <PersonIcon/>
-                                            <span>Профиль</span>
-                                        </NavLink>
-                                    </li>
                                 </ul>
                             </nav>
                         </Container>

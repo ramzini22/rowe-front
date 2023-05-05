@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import FavoritesIcon from './svg/FavoritesIcon';
 import FunctionForPrice from "../helpers/FunctionForPrice";
 import {useAppAction} from "../store";
+import {checkPhotoPath} from "../helpers/checkPhotoPath";
 
 const ProductCard = (props) => {
     const {ChangeFavorites, ChangeShopping} = useAppAction()
@@ -10,7 +11,7 @@ const ProductCard = (props) => {
 
     return (
         <div className="product-card">
-            <Link to={`/catalog/product/${id}`}><img src={image} alt={title}/></Link>
+            <Link to={`/catalog/product/${id}`}><img src={checkPhotoPath(image)} alt={title}/></Link>
             <h3><Link to={`/catalog/product/${id}`}>{title}</Link></h3>
             <div className='d-sm-flex justify-content-between align-items-center'>
                 <p>Фасовка: 1 л; 5 л</p>

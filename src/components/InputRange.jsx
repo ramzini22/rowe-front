@@ -3,6 +3,7 @@ import React, {memo, useEffect, useRef, useState} from 'react';
 const InputRange = ({data, onChange}) => {
 
     const [minV, maxV] = data
+    // const minV=100, maxV=200
 
     const ref = useRef();
     const ref1 = useRef();
@@ -12,11 +13,17 @@ const InputRange = ({data, onChange}) => {
 
 
     const procent=(maxV-minV)/100
-    const minProcent = (startValue-minV)/(procent!=0?procent:1)
-    const maxProcent =minV!=maxV?(endValue-minV)/(procent!=0?procent:1):100
+    let minProcent = procent!=0?(startValue-minV)/procent:0
+    let maxProcent =procent!=0?(endValue-minV)/procent:100
 
-    const letfProcent = (minProcent>=0 && minProcent<=maxProcent?minProcent:0)
-    const rightProcent = (maxProcent<=100 && minProcent<=maxProcent?maxProcent:100)
+    if(minProcent>maxProcent){
+        const t=maxProcent
+        maxProcent=minProcent
+        minProcent=t
+    }
+
+    const letfProcent = (minProcent>=0?minProcent<=100?minProcent:100:0)
+    const rightProcent = (maxProcent<=100?maxProcent>=0?maxProcent:0:100)
 
     let style1 = {
         left:  letfProcent+ '%',
@@ -24,7 +31,6 @@ const InputRange = ({data, onChange}) => {
     let style2 = {
         left: rightProcent + '%',
     }
-
 
     useEffect(()=>{
         setStartValue(minV)
@@ -36,38 +42,12 @@ const InputRange = ({data, onChange}) => {
         onChange([startValue, endValue])
     }, [startValue, endValue])
 
-    const handleVal1 = (e) => {
-        e.preventDefault();
-        let startPoint = e.target.offsetLeft; // позиция первого тумблера относительно диапазона
-        let startPointC = e.target.clientX;
-        console.log('startPoint=' + startPoint);
-        const parentW = e.target.offsetParent.offsetWidth;
-        console.log('parentW=' + parentW);
-
-        if (e.type === "mousedown") {
-            console.log('MouseDownCapture');
-            // document.addEventListener("mousemove", listener);
-        } else if (e.type === "mouseup") {
-            console.log('MouseUpCapture');
-            document.onmousemove = null;
-            e.target.onmouseup = null;
-        } else {
-            return;
-        }
-    }
-
-    const handleVal2 = (e) => {
-        let endPoint = e.target.offsetLeft;
-        console.log('startPoint=' + endPoint);
-    }
-
     return (
         <div className='range'>
             <div className='range-inputs mb-4'>
                 <input type="number" placeholder='0' value={startValue} min={minV} max={maxV}
                        onChange={(e) => {
                            const value = e.target.value
-                           // if(value>=minV)
                            setStartValue(value)
                        }}/>
                 <input type="number" placeholder='0' value={endValue} min={minV} max={maxV}
@@ -84,13 +64,12 @@ const InputRange = ({data, onChange}) => {
                     ref={ref1}
                     className="range-slider-handle-1"
                     style={style1}
-                    onMouseDownCapture={(e) => handleVal1(e)}
-                    onMouseUp={(e) => handleVal1(e)}>
+                >
                 </div>
                 <div
                     className="range-slider-handle-2"
                     style={style2}
-                    onMouseDownCapture={(e) => handleVal2(e)}>
+                >
                 </div>
             </div>
         </div>

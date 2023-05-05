@@ -10,7 +10,7 @@ const Cart = () => {
     const {favorites, shopping} = useAppSelector(state => state?.user?.user)
     const [oils, setOils] = useState()
     useEffect(() => {
-        GetOilsByIds(favorites)
+        GetOilsByIds(shopping)
             .then(res => {
                 if (res) setOils(res)
             })

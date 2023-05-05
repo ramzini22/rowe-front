@@ -14,12 +14,15 @@ import {useAppSelector} from "../store";
 
 const Home = () => {
     const categories = useAppSelector(state => state.app.categories)
+    const navigate = (w)=>{}
     return (
         <main>
             <Container>
                 <section className='sec-1'>
                     <h1>Немецкое качество для вашего авто</h1>
-                    <button type='button' className='btn-1 mx-auto'>Выбрать масло</button>
+                    <Link to='/catalog'>
+                        <button type='button' className='btn-1 mx-auto' onClick={()=>navigate('/catalog')}>Выбрать масло</button>
+                    </Link>
                 </section>
             </Container>
 
@@ -49,22 +52,24 @@ const Home = () => {
                         <Col xs={12} lg={3}>
                             <Row xs={1} md={2} lg={1} className="gx-3 gy-4">
                                 {categories?.slice(0, 2)?.map((element, index)=>
-                                    <Col><CategoryCard {...element}/></Col>
+                                    <Col key={index}><CategoryCard {...element}/></Col>
                                 )}
                             </Row>
                         </Col>
                         <Col xs={12} lg={3}>
                             <Row xs={2} lg={1} className="gx-3 gy-4">
                                 {categories?.slice(2, 4)?.map((element, index)=>
-                                    <Col><CategoryCard {...element}/></Col>
+                                    <Col key={index}><CategoryCard {...element}/></Col>
                                 )}
                             </Row>
                         </Col>
                         <Col xs={6} lg={3}>
                             <CategoryCard {...categories[4]} className={'bigger'} /></Col>
                         <Col xs={6} lg={3}>
-                            <CategoryCard {...categories[5]} className={'big'} image={"imgs/img7.png"} />
-                            <button type='button' className='btn-2 w-100 d-none d-lg-block mt-lg-5'>В каталог</button>
+                            <CategoryCard {...categories[5]} className={'big'} />
+                            <Link to={'/catalog'} state={{idCategory:categories[5]?.id}}>
+                                <button type='button' className='btn-2 w-100 d-none d-lg-block mt-lg-5'>В каталог</button>
+                            </Link>
                         </Col>
                     </Row>
                 </section>
