@@ -14,14 +14,13 @@ import {useAppSelector} from "../store";
 
 const Home = () => {
     const categories = useAppSelector(state => state.app.categories)
-    const navigate = (w)=>{}
     return (
         <main>
             <Container>
                 <section className='sec-1'>
                     <h1>Немецкое качество для вашего авто</h1>
                     <Link to='/catalog'>
-                        <button type='button' className='btn-1 mx-auto' onClick={()=>navigate('/catalog')}>Выбрать масло</button>
+                        <button type='button' className='btn-1 mx-auto'>Выбрать масло</button>
                     </Link>
                 </section>
             </Container>
