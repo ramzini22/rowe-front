@@ -109,7 +109,8 @@ const Catalog = () => {
 
                                         <h6>Цена, ₽</h6>
                                         <InputRange data={minMax} onChange={([minPrice, maxPrice])=>{
-                                            setFilter({minPrice, maxPrice})
+                                            if(filter?.minPrice!=minPrice || filter?.maxPrice!=maxPrice)
+                                                setFilter({minPrice, maxPrice})
                                         }}/>
 
                                         <Accordion className='mt-4' defaultActiveKey="0">

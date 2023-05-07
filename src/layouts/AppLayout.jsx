@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {initFingerprint} from "../store/slices/app/Action";
 import Alert from "../components/Alert";
 import {GetOptionsWithParams} from "../services/Options";
+import ChangeLocation from "./ChangeLocation";
 
 const AppLayout = () => {
     const fingerprint = localStorage.getItem('fingerprint')
@@ -20,8 +21,10 @@ const AppLayout = () => {
         <>
             <ScrollRestoration/>
             <Header/>
+            <ChangeLocation>
+                <Outlet/>
+            </ChangeLocation>
             <Alert />
-            <Outlet/>
             <Footer/>
         </>
     );
