@@ -13,6 +13,7 @@ import CloseIcon from '../components/svg/CloseIcon';
 import {useAppSelector} from "../store";
 import {useLocation} from "react-router-dom";
 import {GetaLLParametrs, GetAllProducts, GetSpecifications} from "../services/Options";
+import Loader from "../components/Loader";
 
 const Catalog = () => {
     const {mobile} = useIsMobile('991px');
@@ -23,7 +24,8 @@ const Catalog = () => {
     const handleCloseFilters = () => setShowFilters(false);
     const handleShowFilters = () => setShowFilters(true);
     const [oils, setOils] = useState()
-    const [minMax, setMinMax] = useState([0, 200])
+    const [minMax, setMinMax] = useState([0, 0])
+    const [stopSearch, setStopSearch] = useState(false)
     const [categoriesList, setCategoriesList] = useState()
     const [parametrList, setParametrList] = useState()
     const idCategory = state?.idCategory ? state?.idCategory : 1
@@ -59,21 +61,25 @@ const Catalog = () => {
     }, [idCategory])
 
     useEffect(() => {
-        GetAllProducts(filter).then(res => {
-            if (res) {
-                const {minPrice, maxPrice} = res?.meta
-                if(minPrice && maxPrice)
-                    setMinMax([minPrice, maxPrice])
-                setOils(res?.body)
-            }
-        })
+        if (!stopSearch) {
+            console.log(filter)
+            setOils('loading')
+            GetAllProducts(filter).then(res => {
+                if (res) {
+                    const {minPrice, maxPrice} = res?.meta
+                    if (minPrice && maxPrice)
+                        setMinMax([minPrice, maxPrice])
+                    setOils(res?.body)
+                } else
+                    setOils(null)
+            })
+        } else setStopSearch(false)
     }, [filter])
 
     return (
         <main>
             <Container>
                 <NavBreadcrumbs pageName={'Каталог'}/>
-
                 {
                     (!mobile) &&
                     <section className='sec-8 mb-custom'>
@@ -108,9 +114,12 @@ const Catalog = () => {
                                         </select>
 
                                         <h6>Цена, ₽</h6>
-                                        <InputRange data={minMax} onChange={([minPrice, maxPrice])=>{
-                                            if(filter?.minPrice!=minPrice || filter?.maxPrice!=maxPrice)
+                                        <InputRange data={minMax} onChange={([minPrice, maxPrice]) => {
+                                            if (filter?.minPrice != minPrice || filter?.maxPrice != maxPrice) {
                                                 setFilter({minPrice, maxPrice})
+                                            }
+                                            if (filter?.minPrice == undefined)
+                                                setStopSearch(true)
                                         }}/>
 
                                         <Accordion className='mt-4' defaultActiveKey="0">
@@ -166,18 +175,24 @@ const Catalog = () => {
 
                                 <button type='button' onClick={handleShowFilters}>Фильтры</button>
                             </div>
-
-                            <Row xs={2} md={3} className="gx-3 gx-sm-4 gx-xl-5 gy-5">
-                                {oils?.map((element, index) =>
-                                    <Col key={index}>
-                                        <ProductCard
-                                            {...element}
-                                            fav={favorites?.find(el => el == element?.id)}
-                                            shop={shopping?.find(el => el == element?.id)}
-                                        />
-                                    </Col>
-                                )}
-                            </Row>
+                            {oils === 'loading' ?
+                                <Loader color={'red'}/>
+                                : oils?.length==0 ?
+                                        <Container className={'d-flex justify-content-center'}>
+                                            <h2>Товаров не найдено</h2>
+                                        </Container>
+                                    : <Row xs={2} md={3} className="gx-3 gx-sm-4 gx-xl-5 gy-5">
+                                        {oils?.map((element, index) =>
+                                            <Col key={index}>
+                                                <ProductCard
+                                                    {...element}
+                                                    fav={favorites?.find(el => el == element?.id)}
+                                                    shop={shopping?.find(el => el == element?.id)}
+                                                />
+                                            </Col>
+                                        )}
+                                    </Row>
+                            }
                         </Col>
                     </Row>
                 </section>

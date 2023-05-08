@@ -40,6 +40,7 @@ const InputRange = ({data, onChange}) => {
     useEffect(()=>{
         const down = startValue>=minV?startValue:minV
         const top = endValue<=maxV?endValue:maxV
+        if(down!=top && top!=0)
             onChange([down, top])
     }, [startValue, endValue])
 
