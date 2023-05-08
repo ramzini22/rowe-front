@@ -2605,7 +2605,24 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active {
         transform: translate(24px, 0);
     }
 }
+.countNumber{
+    position: absolute;
+    z-index: 10;
+    background-color: #E4170F;
+    color: #FFFFFF;
+    font-size: .5em;
+    border-radius: 50%;
+    border: 2px solid white;
 
+
+    display: flex;
+    width:20px;
+    aspect-ratio: 1/1;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    margin-left: 20px;
+}
 
 
 /*# sourceMappingURL=style.min.css.map */

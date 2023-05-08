@@ -22,7 +22,7 @@ const Footer = () => {
         <>
             <footer>
                 {
-                    (mobile)
+                    mobile
                         ? <Container>
                             <nav>
                                 <ul>
@@ -40,6 +40,9 @@ const Footer = () => {
                                     </li>
                                     <li>
                                         <NavLink to="/cart">
+                                            {shopping?.length!=0 &&
+                                                <span className="countNumber">{shopping?.length}</span>
+                                            }
                                             <CartIcon/>
                                             <span>Корзина</span>
                                         </NavLink>
@@ -101,15 +104,19 @@ const Footer = () => {
                     <li>
                         <Link to="/favorites">
                             <FavoritesIcon/>
-                            <div style={{marginLeft: '-2px', marginBottom: '30px', position: 'relative'}}>
-                                <span className="count">{favorites?.length}</span>
-                            </div>
+                            {favorites?.length!=0 &&
+                                <div style={{marginLeft: '-2px', marginBottom: '30px', position: 'relative'}}>
+                                    <span className="count">{favorites?.length}</span>
+                                </div>
+                            }
                         </Link>
                     </li>
                     <li>
                         <Link to="/cart">
                             <CartIcon/>
-                            <span className="count">{shopping?.length}</span>
+                            {shopping?.length!=0 &&
+                                <span className="count">{shopping?.length}</span>
+                            }
                         </Link>
                     </li>
                 </ul>

@@ -62,7 +62,6 @@ const Catalog = () => {
 
     useEffect(() => {
         if (!stopSearch) {
-            console.log(filter)
             setOils('loading')
             GetAllProducts(filter).then(res => {
                 if (res) {
@@ -179,6 +178,7 @@ const Catalog = () => {
                                 <Loader color={'red'}/>
                                 : oils?.length==0 ?
                                         <Container className={'d-flex justify-content-center'}>
+                                            <h2>Товаров не найдено</h2>
                                             <h2>Товаров не найдено</h2>
                                         </Container>
                                     : <Row xs={2} md={3} className="gx-3 gx-sm-4 gx-xl-5 gy-5">

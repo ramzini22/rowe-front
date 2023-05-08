@@ -12,6 +12,7 @@ const Favorites = () => {
     const [oils, setOils] = useState([])
 
     useEffect(() => {
+        if (favorites?.length > 0) {
             setOils('loading')
             GetOilsByIds(favorites)
                 .then(res => {
@@ -20,9 +21,17 @@ const Favorites = () => {
                     else
                         setOils(null)
                 })
+        }
+    }, [])
+
+    useEffect(()=>{
+        if(favorites?.length<oils?.length){
+            const newArray = oils?.filter(element=>favorites?.includes(element.id))
+            setOils(newArray)
+        }
     }, [favorites])
 
-    if (oils==='loading')
+    if (oils === 'loading')
         return (
             <main>
                 <Loader color={'red'}/>

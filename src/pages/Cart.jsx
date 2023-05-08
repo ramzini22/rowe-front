@@ -12,8 +12,8 @@ const Cart = () => {
     const [oils, setOils] = useState()
 
     useEffect(() => {
-        setOils('loading')
-        if (shopping?.length > 0)
+        if (shopping?.length > 0){
+            setOils('loading')
             GetOilsByIds(shopping)
                 .then(res => {
                     if (res)
@@ -21,6 +21,14 @@ const Cart = () => {
                     else
                         setOils(null)
                 })
+        }
+    }, [])
+
+    useEffect(()=>{
+        if(shopping?.length<oils?.length){
+            const newArray = oils?.filter(element=>shopping?.includes(element.id))
+            setOils(newArray)
+        }
     }, [shopping])
 
     if (oils === 'loading')

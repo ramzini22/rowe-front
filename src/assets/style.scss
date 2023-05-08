@@ -509,7 +509,7 @@ form.search {
   .container {
     max-width: 1526px;
   }
-} 
+}
 .accordion {
   --bs-accordion-color: $black;
   --bs-accordion-active-color: $black;
@@ -1399,7 +1399,7 @@ figure.category {
     @include flex(row, flex-start, center, wrap);
     li {
       margin-bottom: .5em;
-      &:not(:last-child){margin-right: 1em;} 
+      &:not(:last-child){margin-right: 1em;}
       input ~ div {
         background-color: $red;
         color: $white;
