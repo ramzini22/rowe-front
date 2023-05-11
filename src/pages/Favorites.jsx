@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import ProductCard from "../components/ProductCard";
 import {GetOilsByIds} from "../services/Oils";
 import Loader from "../components/Loader";
+import NavBreadcrumbs from "../components/NavBreadcrumbs";
 
 const Favorites = () => {
     const {favorites, shopping} = useAppSelector(state => state?.user?.user)
@@ -24,9 +25,9 @@ const Favorites = () => {
         }
     }, [])
 
-    useEffect(()=>{
-        if(favorites?.length<oils?.length){
-            const newArray = oils?.filter(element=>favorites?.includes(element.id))
+    useEffect(() => {
+        if (favorites?.length < oils?.length) {
+            const newArray = oils?.filter(element => favorites?.includes(element.id))
             setOils(newArray)
         }
     }, [favorites])
@@ -34,30 +35,37 @@ const Favorites = () => {
     if (oils === 'loading')
         return (
             <main>
-                <Loader color={'red'}/>
+                <Container>
+                    <NavBreadcrumbs pageName={'Понравившиеся'}/>
+                    <Loader color={'red'}/>
+                </Container>
             </main>)
     else if (favorites?.length)
         return (
             <main>
-                <div className={'p-3 p-sm-4 p-lg-5'}>
-                    <Row xs={2} md={3} className="gx-3 gx-sm-4 gx-xl-5 gy-5">
-                        {oils?.length > 0 && oils?.map((element, index) =>
-                            <Col key={index}>
-                                <ProductCard
-                                    {...element}
-                                    fav={true}
-                                    shop={shopping?.find(el => el == element?.id)}
-                                />
-                            </Col>
-                        )}
-                    </Row>
-                </div>
+                <Container>
+                    <div>
+                        <NavBreadcrumbs pageName={'Понравившиеся'}/>
+                        <Row xs={2} md={3} className="gx-3 gx-sm-4 gx-xl-5 gy-5">
+                            {oils?.length > 0 && oils?.map((element, index) =>
+                                <Col key={index}>
+                                    <ProductCard
+                                        {...element}
+                                        fav={true}
+                                        shop={shopping?.find(el => el == element?.id)}
+                                    />
+                                </Col>
+                            )}
+                        </Row>
+                    </div>
+                </Container>
             </main>
         );
     else
         return (
             <main>
                 <Container>
+                    <NavBreadcrumbs pageName={'Понравившиеся'}/>
                     <h1>Товаров не найдено</h1>
                 </Container>
             </main>
