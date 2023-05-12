@@ -48,6 +48,18 @@ const Catalog = () => {
         }
     }
 
+    const ChangeSelect = (value)=>{
+        switch (value){
+            case '0':
+                setFilter({orderBy:'price', direction:'asc'})
+                break;
+            case '1':
+                setFilter({orderBy:'price', direction:'desc'})
+                break;
+        }
+    }
+
+
     useEffect(() => {
         GetSpecifications(idCategory).then(res => {
             if (res)
@@ -106,10 +118,12 @@ const Catalog = () => {
                                         </button>
                                     </div>
                                     <form className="filter w-100">
-                                        <select className='d-none d-lg-block mb-4'>
-                                            <option value="">Сначала дешёвые</option>
-                                            <option value="">Сначала дорогие</option>
-                                            <option value="">Сначала популярные</option>
+                                        <select className='d-none d-lg-block mb-4' onChange={({target:{value}})=>{
+                                            ChangeSelect(value)
+                                        }}>
+                                            <option value={0}>Сначала дешёвые</option>
+                                            <option value={1}>Сначала дорогие</option>
+                                            <option value={2}>Сначала популярные</option>
                                         </select>
 
                                         <h6>Цена, ₽</h6>
@@ -164,12 +178,13 @@ const Catalog = () => {
                                     </li>
                                 )}
                             </ul>
-
-                            <div className="d-flex justify-content-between align-items-center d-lg-none mb-4 mb-sm-5">
+                            <div className="d-flex justify-content-between align-items-center d-lg-none mb-4 mb-sm-5" onChange={({target:{value}})=>{
+                                ChangeSelect(value)
+                            }}>
                                 <select>
-                                    <option value="">Сначала дешёвые</option>
-                                    <option value="">Сначала дорогие</option>
-                                    <option value="">Сначала популярные</option>
+                                    <option value={0}>Сначала дешёвые</option>
+                                    <option value={1}>Сначала дорогие</option>
+                                    <option value={2}>Сначала популярные</option>
                                 </select>
 
                                 <button type='button' onClick={handleShowFilters}>Фильтры</button>
