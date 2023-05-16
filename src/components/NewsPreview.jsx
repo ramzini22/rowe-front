@@ -1,17 +1,21 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {checkPhotoPath} from "../helpers/checkPhotoPath";
 
 const NewsPreview = (props) => {
-  return (
-    <article>
-      <figure>
-        <img src={props.img} alt={props.title} />
-        <figcaption>
-          <h5><Link to="/blog/article" className='stretched-link'>{props.title}</Link></h5>
-        </figcaption>
-      </figure>
-    </article>
-  );
+    const {id, image, imageAlt, title} = props
+    return (
+        <article>
+            <figure>
+                <Link to={`/blog/article/${id}`} className='stretched-link' state={{...props}}>
+                    <img src={checkPhotoPath(image)} alt={imageAlt}/>
+                    <figcaption>
+                        <h5>{title}</h5>
+                    </figcaption>
+                </Link>
+            </figure>
+        </article>
+    );
 };
 
 export default NewsPreview;

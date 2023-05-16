@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -11,9 +11,27 @@ import OfferCard from '../components/OfferCard';
 import NewsPreview from '../components/NewsPreview';
 import Cursor from '../components/svg/Cursor';
 import {useAppSelector} from "../store";
-
+import {GetAllNews} from "../services/News";
+import {GetOilsWithDiscount} from "../services/Oils";
 const Home = () => {
     const categories = useAppSelector(state => state.app.categories)
+    const [news, setNews] = useState()
+
+    const [oilsWithDiscount, setOilsWithDiscount] =useState()
+    useEffect(()=>{
+        GetAllNews({page:1, limit:3}).then(res=>{
+            if(res){
+                setNews(res?.body)
+            }
+        })
+
+        GetOilsWithDiscount().then(res=>{
+            if(res){
+                setOilsWithDiscount(res)
+            }
+        })
+
+    }, [])
     return (
         <main>
             <Container>
@@ -103,19 +121,12 @@ const Home = () => {
                                 },
                             }}
                         >
-                            <SwiperSlide>
-                                <OfferCard title={'Гоночное моторное масло HIGHTEC RACING MOTOR OIL SAE 10W-40'}
-                                           img={"imgs/img8.png"}/>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <OfferCard title={'Антифриз HIGHTEC ANTIFREEZE AN G11'} img={"imgs/img10.png"}/>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <OfferCard title={'Трансмиссионное масло  HIGHTEC LHM-PLUS'} img={"imgs/img11.png"}/>
-                            </SwiperSlide>
-                            <SwiperSlide>
-                                <OfferCard title={'Формовочное масло HIGHTEC SUNLUB® FORM 46P'} img={"imgs/img12.png"}/>
-                            </SwiperSlide>
+                            {oilsWithDiscount?.map((element, index)=>
+                                <SwiperSlide key={index}>
+                                    <OfferCard {...element} />
+                                </SwiperSlide>
+                            )}
+
                         </Swiper>
                     </div>
                 </section>
@@ -136,16 +147,10 @@ const Home = () => {
                     <h2>Будьте в курсе новостей из мира…</h2>
 
                     <ul className="news-list">
-                        <li>
-                            <NewsPreview img={"imgs/img7.jpg"} title={"7 признаков неисправности тормозной системы"}/>
-                        </li>
-                        <li>
-                            <NewsPreview img={"imgs/img7.jpg"}
-                                         title={"Как подготовить автомобиль к весенней эксплуатации?"}/>
-                        </li>
-                        <li>
-                            <NewsPreview img={"imgs/img7.jpg"} title={"Уходит антифриз. Что делать?"}/>
-                        </li>
+                        {news?.map((element, index)=>
+                            <li key={index}>
+                                <NewsPreview {...element} />
+                            </li>)}
                         <li className='flex-1'>
                             <Link className='link' to='/blog'>Перейти в блог</Link>
                         </li>
