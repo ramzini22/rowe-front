@@ -10,6 +10,7 @@ import CloseIcon from './svg/CloseIcon';
 import SmartphoneIcon from './svg/SmartphoneIcon';
 import Menu from '../assets/imgs/MenuIcon.svg';
 import Plaix from './svg/Plaix';
+import {useAppSelector} from "../store";
 
 const Header = () => {
   const {mobile} = useIsMobile('991px');
@@ -19,6 +20,8 @@ const Header = () => {
   const [showSearch, setShowSearch] = useState(false);
   const handleCloseSearch = () => setShowSearch(false);
   const handleShowSearch = () => setShowSearch(true);
+
+  const information = useAppSelector(state=>state.app.information)
 
   const [showMenu, setShowMenu] = useState(false);
   const handleCloseMenu = () =>  setShowMenu(false);
@@ -45,7 +48,7 @@ const Header = () => {
               </nav>
               <a href="tel:+7-987-212-60-76" className='link fs-12 d-flex align-items-center'>
                 <SmartphoneIcon className="fs-13 me-1"/>
-                <span>+7-987-212-60-76</span>
+                <span>{information?.phone}</span>
               </a>
             </>
           }

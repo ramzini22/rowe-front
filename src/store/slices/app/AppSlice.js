@@ -1,12 +1,13 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {GetBanner, GetOptionsWithParams} from '../../../services/Options'
+import {GetBanner, GetInformation, GetOptionsWithParams} from '../../../services/Options'
 
 const initialState = {
     notFound: false,
     categories: [],
     fingerprint: null,
     alertSlice: null,
-    banner: null
+    banner: null,
+    information:null
 }
 const AppSlice = createSlice({
     name: 'app',
@@ -27,12 +28,10 @@ const AppSlice = createSlice({
             state.categories = action.payload
         })
         builder.addCase(GetBanner.fulfilled, (state, action) => {
-            console.log(action.payload)
             state.banner= action.payload
         })
-        builder.addCase(GetBanner.rejected, (state, action) => {
-            console.log(2)
-            state.banner= action.payload
+        builder.addCase(GetInformation.fulfilled, (state, action) => {
+            state.information= action.payload
         })
     },
 })

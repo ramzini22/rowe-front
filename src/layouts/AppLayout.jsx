@@ -5,7 +5,7 @@ import Header from '../components/Header';
 import {useDispatch} from "react-redux";
 import {initFingerprint} from "../store/slices/app/Action";
 import Alert from "../components/Alert";
-import {GetBanner, GetOptionsWithParams} from "../services/Options";
+import {GetBanner, GetInformation, GetOptionsWithParams} from "../services/Options";
 import ChangeLocation from "./ChangeLocation";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 
@@ -15,6 +15,7 @@ const AppLayout = () => {
     useEffect(() => {
         dispatch(GetOptionsWithParams())
         dispatch(GetBanner())
+        dispatch(GetInformation())
         if (!fingerprint)
             dispatch(initFingerprint())
     }, [fingerprint])

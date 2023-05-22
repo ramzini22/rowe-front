@@ -24,6 +24,17 @@ export const GetBanner = createAsyncThunk(
         }
     })
 
+export const GetInformation = createAsyncThunk(
+    'app/getInformation',
+    async (payload = {}, thunkAPI) => {
+        try {
+            const response = await Api(`${apiRoutes.GET_INFORMATION}/1`)
+            return thunkAPI.fulfillWithValue(response)
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error?.response?.data.message)
+        }
+    })
+
 export const GetSpecifications = async (id) => {
     const response = await Api(`${apiRoutes.GET_ALL_SPECIFICATION}/${id}`)
     return response
@@ -31,11 +42,6 @@ export const GetSpecifications = async (id) => {
 
 export const GetaLLParametrs = async (id) => {
     const response = await Api(`${apiRoutes.GET_ALL_PARAMETRS}/${id}`)
-    return response
-}
-
-export const GetInfo = async () => {
-    const response = await Api(`${apiRoutes.GET_INFORMATION}/1`)
     return response
 }
 

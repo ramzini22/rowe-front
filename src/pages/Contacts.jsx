@@ -6,26 +6,13 @@ import ContactsFillIcon from '../components/svg/ContactsFillIcon';
 import Wapp from '../components/svg/Wapp';
 import useIsMobile from '../hooks/isMobile';
 import NavBreadcrumbs from '../components/NavBreadcrumbs';
-import {GetInfo} from "../services/Options";
 import Banner from "../components/Banner";
+import {useAppSelector} from "../store";
+import {GetInformation} from "../services/Options";
 
 const Contacts = () => {
     const {mobile} = useIsMobile('991px');
-    const [information, setInformation] = useState({
-        legalStatus: "ООО “РавеоилКЗН”",
-        address: "г. Казань, ул. Родины 37",
-        phone: "+7-987-212-60-76"
-    })
-
-    useEffect(()=>{
-        GetInfo().then(res=>{
-            if(res){
-                console.log(res)
-                setInformation(res)
-            }
-        })
-    }, [])
-
+    const information = useAppSelector(state=>state.app.information)
     return (
         <main>
             <Container>
