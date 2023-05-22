@@ -12,9 +12,12 @@ export async function Api(url='', {body, method}={body:null, method:'GET'}) {
         const init=method=='GET'?{headers: {...mainHeaders}, method}:{headers: {...mainHeaders}, method, body:JSON.stringify(body)}
         const result = await fetch(BASE_API_URL+url,
             {...init})
-        return result.json()
+        if(result.status==200)
+            return result.json()
+        return null
     }catch (e){
         console.log(e)
+        return null
     }
 }
 
@@ -33,6 +36,12 @@ const apiRoutes = {
     // News
     GET_ALL_NEWS: 'news/paginate',
     GET_ONE_NEW: 'news',
+
+    // Information about us
+    GET_INFORMATION:'settings',
+
+    // Banner
+    GET_BANNER:'banner/1'
 }
 
 export { BASE_API_URL, BASE_URL }

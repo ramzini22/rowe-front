@@ -7,14 +7,15 @@ import {checkPhotoPath} from "../helpers/checkPhotoPath";
 
 const ProductCard = (props) => {
     const {ChangeFavorites, ChangeShopping} = useAppAction()
-    const {title, image, price, oldPrice, id, fav, shop} = props
+    const {title, image, price, oldPrice, id, fav, shop, volume} = props
 
+    // console.log(props)
     return (
         <div className="product-card">
             <Link to={`/catalog/product/${id}`}><img src={checkPhotoPath(image)} alt={title}/></Link>
             <h3><Link to={`/catalog/product/${id}`}>{title}</Link></h3>
             <div className='d-sm-flex justify-content-between align-items-center'>
-                <p>Фасовка: 1 л; 5 л</p>
+                <p>{`Фасовка: ${volume}Л`}</p>
                 <p>Вязкость: 10W-60</p>
             </div>
             <div className='bottom'>

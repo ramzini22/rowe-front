@@ -13,6 +13,8 @@ import Cursor from '../components/svg/Cursor';
 import {useAppSelector} from "../store";
 import {GetAllNews} from "../services/News";
 import {GetOilsWithDiscount} from "../services/Oils";
+import Banner from "../components/Banner";
+
 const Home = () => {
     const categories = useAppSelector(state => state.app.categories)
     const [news, setNews] = useState()
@@ -91,71 +93,67 @@ const Home = () => {
                     </Row>
                 </section>
 
-                <section className='sec-4 mb-custom'>
-                    <h3>Акционные предложения</h3>
-                    <div className='position-relative'>
-                        <Cursor className="cursor-animated"/>
-                        <Swiper
-                            spaceBetween={20}
-                            slidesPerView={1}
-                            breakpoints={{
-                                576: {
-                                    slidesPerView: 2,
-                                    spaceBetween: 20,
-                                },
-                                768: {
-                                    slidesPerView: 3,
-                                    spaceBetween: 20,
-                                },
-                                992: {
-                                    slidesPerView: 4,
-                                    spaceBetween: 20,
-                                },
-                                1200: {
-                                    slidesPerView: 4,
-                                    spaceBetween: 30,
-                                },
-                                1400: {
-                                    slidesPerView: 4,
-                                    spaceBetween: 40,
-                                },
-                            }}
-                        >
-                            {oilsWithDiscount?.map((element, index)=>
-                                <SwiperSlide key={index}>
-                                    <OfferCard {...element} />
-                                </SwiperSlide>
-                            )}
+                {
+                    oilsWithDiscount?.length>0 &&
+                    <section className='sec-4 mb-custom'>
+                        <h3>Акционные предложения</h3>
+                        <div className='position-relative'>
+                            <Cursor className="cursor-animated"/>
+                            <Swiper
+                                spaceBetween={20}
+                                slidesPerView={1}
+                                breakpoints={{
+                                    576: {
+                                        slidesPerView: 2,
+                                        spaceBetween: 20,
+                                    },
+                                    768: {
+                                        slidesPerView: 3,
+                                        spaceBetween: 20,
+                                    },
+                                    992: {
+                                        slidesPerView: 4,
+                                        spaceBetween: 20,
+                                    },
+                                    1200: {
+                                        slidesPerView: 4,
+                                        spaceBetween: 30,
+                                    },
+                                    1400: {
+                                        slidesPerView: 4,
+                                        spaceBetween: 40,
+                                    },
+                                }}
+                            >
+                                {oilsWithDiscount?.map((element, index)=>
+                                    <SwiperSlide key={index}>
+                                        <OfferCard {...element} />
+                                    </SwiperSlide>
+                                )}
 
-                        </Swiper>
-                    </div>
-                </section>
+                            </Swiper>
+                        </div>
+                    </section>
+                }
 
-                <section className='sec-5 mb-custom'>
-                    <Row>
-                        <Col xs={12} md={7}>
-                            <h2 className='h1'>Получите моторное масло HIGHTEC SYNT RSV SAE 0W-20 в подарок</h2>
-                            <h5>Акция действует при покупке смазки HIGHTEC RACING GREASEGUARD RLF2</h5>
-                        </Col>
-                        <Col xs={12} md={5} className="mt-4 mt-md-0">
-                            <img src="imgs/img9.png" alt="HIGHTEC SYNT RSV SAE 0W-20"/>
-                        </Col>
-                    </Row>
-                </section>
+                <Banner />
 
-                <section className='sec-6 mb-custom'>
-                    <h2>Будьте в курсе новостей из мира…</h2>
+                {
+                    news?.length>0 &&
+                    <section className='sec-6 mb-custom'>
+                        <h2>Будьте в курсе новостей из мира…</h2>
 
-                    <ul className="news-list">
-                        {news?.map((element, index)=>
-                            <li key={index}>
-                                <NewsPreview {...element} />
-                            </li>)}
-                        <li className='flex-1'>
-                            <Link className='link' to='/blog'>Перейти в блог</Link>
-                        </li>
-                    </ul>
-                </section>
+                        <ul className="news-list">
+                            {news?.map((element, index)=>
+                                <li key={index}>
+                                    <NewsPreview {...element} />
+                                </li>)}
+                            <li className='flex-1'>
+                                <Link className='link' to='/blog'>Перейти в блог</Link>
+                            </li>
+                        </ul>
+                    </section>
+                }
 
                 <section className='sec-7 mb-sm-3 mb-md-5'>
                     <Row xs={1} lg={2} className='align-items-center'>

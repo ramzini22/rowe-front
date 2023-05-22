@@ -7,6 +7,7 @@ import {useLocation, useParams} from "react-router-dom";
 import Loader from "../components/Loader";
 import {checkPhotoPath} from "../helpers/checkPhotoPath";
 import {GetOneNew} from "../services/News";
+import Banner from "../components/Banner";
 
 const Article = () => {
     const {state} = useLocation()
@@ -28,7 +29,7 @@ const Article = () => {
                 oneNew == 'loading' ?
                     <Loader color={'red'}/>
                     : <Container>
-                        <NavBreadcrumbs/>
+                        <NavBreadcrumbs pageName={'Новость'}/>
 
                         <section className='sec-13 mb-custom'>
                             <h1 className='inner'>{oneNew?.title}</h1>
@@ -37,18 +38,7 @@ const Article = () => {
                                 <div dangerouslySetInnerHTML={{__html:oneNew?.description}}></div>
                             </div>
                         </section>
-
-                        <section className='sec-5 mt-small mb-sm-4 mb-md-5'>
-                            <Row>
-                                <Col xs={12} md={7}>
-                                    <h2 className='h1'>Получите моторное масло HIGHTEC SYNT RSV SAE 0W-20 в подарок</h2>
-                                    <h5>Акция действует при покупке смазки HIGHTEC RACING GREASEGUARD RLF2</h5>
-                                </Col>
-                                <Col xs={12} md={5} className="mt-4 mt-md-0">
-                                    <img src="../../imgs/img9.png" alt="HIGHTEC SYNT RSV SAE 0W-20"/>
-                                </Col>
-                            </Row>
-                        </section>
+                    <Banner />
                     </Container>
             }
         </main>

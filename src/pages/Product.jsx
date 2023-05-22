@@ -6,7 +6,7 @@ import NavBreadcrumbs from '../components/NavBreadcrumbs';
 import CategoryPill from '../components/CategoryPill';
 import useIsMobile from '../hooks/isMobile';
 import FavoritesIcon from '../components/svg/FavoritesIcon';
-import {Link, useParams} from 'react-router-dom';
+import {Link, NavLink, useParams} from 'react-router-dom';
 import {useAppAction, useAppSelector} from "../store";
 import {GetOilsOne} from "../services/Oils";
 import FunctionForPrice from "../helpers/FunctionForPrice";
@@ -30,9 +30,7 @@ const Product = () => {
                 setOil(res)
             }
         })
-    }, [])
-
-
+    }, [id])
 
     return (
         <main>
@@ -51,7 +49,6 @@ const Product = () => {
                                             <li><CategoryPill {...element} /></li>
                                         </li>
                                     )}
-
                                 </ul>
                             </section>
                         }
@@ -75,24 +72,32 @@ const Product = () => {
                                 <Col sm={{span: 8, offset: 4}} lg={{span: 4, offset: 0}} xxl={3}>
                                     <h4>Выберите фасовку</h4>
                                     <ul className='packaging-list'>
-                                        <li>
-                                            <label>
-                                                <input type="radio" name="packaging" hidden/>
-                                                <div>1Л</div>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label>
-                                                <input type="radio" name="packaging" hidden/>
-                                                <div>5Л</div>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label>
-                                                <input type="radio" name="packaging" hidden/>
-                                                <div>20Л</div>
-                                            </label>
-                                        </li>
+                                        {
+                                            oil?.affinities?.length > 0 ?
+                                                [...oil?.affinities, oil]
+                                                    ?.sort((a, b)=>a.volume-b.volume)
+                                                    ?.map((element, index) =>
+                                                    <li key={index}>
+                                                        <label>
+                                                            <NavLink to={`/catalog/product/${element?.id}`}>
+                                                                <input type="radio" checked={element?.id==oil.id} name="packaging" hidden/>
+                                                                <div>{element?.volume}Л</div>
+                                                            </NavLink>
+                                                        </label>
+                                                    </li>
+                                                )
+                                                : [oil]?.map((element, index) =>
+                                                    <li key={index}>
+                                                        <label>
+                                                            <NavLink to={`/catalog/product/${element?.id}`}>
+                                                                <input type="radio" name="packaging" hidden/>
+                                                                <div>{element?.volume}Л</div>
+                                                            </NavLink>
+                                                        </label>
+                                                    </li>
+                                                )
+
+                                        }
                                     </ul>
                                     <div className="box mt-4">
                                         <div>

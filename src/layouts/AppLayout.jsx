@@ -5,18 +5,19 @@ import Header from '../components/Header';
 import {useDispatch} from "react-redux";
 import {initFingerprint} from "../store/slices/app/Action";
 import Alert from "../components/Alert";
-import {GetOptionsWithParams} from "../services/Options";
+import {GetBanner, GetOptionsWithParams} from "../services/Options";
 import ChangeLocation from "./ChangeLocation";
+import {createAsyncThunk} from "@reduxjs/toolkit";
 
 const AppLayout = () => {
     const fingerprint = localStorage.getItem('fingerprint')
     const dispatch = useDispatch()
-    dispatch(GetOptionsWithParams())
     useEffect(() => {
+        dispatch(GetOptionsWithParams())
+        dispatch(GetBanner())
         if (!fingerprint)
             dispatch(initFingerprint())
     }, [fingerprint])
-
     return (
         <>
             <ScrollRestoration/>
