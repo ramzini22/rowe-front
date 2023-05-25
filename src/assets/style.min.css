@@ -1785,13 +1785,17 @@ figure.category img.bigger {
         font-weight: 600
     }
 }
-
+.thumb{
+    color:white;
+}
+.track{
+    color:#c00;
+}
 @media (max-width: 575px) {
     .sec-10 h3 {
         font-size: 1.2em
     }
 }
-
 .sec-10 .phone {
     display: flex;
     flex-direction: row;
@@ -2624,6 +2628,92 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active {
     margin-bottom: 40px;
     margin-left: 20px;
 }
+
+.product-for-card img{
+    height:90%;
+}
+@media(max-width: 575px){
+    .product-for-card{
+        font-size:0.8em;
+    }
+}
+
+
+@media(min-width: 768px){
+    .product-for-card{
+        font-size:1.1em;
+    }
+
+}
+
+
+.for-img{
+    background-color: #F3F3F3;
+    border-radius:15px;
+    aspect-ratio: 1/1;
+}
+
+
+@media(max-width: 767px){
+    .for-img{
+        width:200px;
+        height:200px;
+    }
+}
+
+@media(max-width: 575px){
+    .for-img{
+        width:90px;
+        height:90px;
+    }
+}
+
+
+@media(min-width: 768px){
+    .for-img{
+        width:160px;
+        height:160px;
+    }
+}
+
+.btn1-shop, .btn2-shop{
+    color:red;
+    cursor: pointer;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    border-radius: 5px;
+}
+
+
+.btn1-shop{
+    color:red;
+    border: 1px solid red;
+    width:30px;
+    border-radius: 5px;
+}
+
+
+.btn2-shop{
+    color:black;
+    border: 1px solid silver;
+    border-radius: 5px;
+}
+
+@media(min-width: 768px){
+    .btn2-shop{
+        min-width: 50px;
+    }
+}
+
+@media(max-width: 767px){
+    .btn2-shop{
+        min-width: 40%;
+    }
+}
+
 
 
 /*# sourceMappingURL=style.min.css.map */

@@ -30,10 +30,21 @@ const Catalog = () => {
     const [parametrList, setParametrList] = useState()
     const idCategory = state?.idCategory ? state?.idCategory : 1
     const nameCategory = categories?.find(element => element.id == idCategory)?.name
+    const searchInput=useAppSelector(state=>state.app.searchInput)
     const [filter, setFilter] = useReducer((state, newState) => ({...state, ...newState}),
         {
             page: 1, limit: 12, specifications: [], options: []
         })
+    useEffect(()=>{
+        if(searchInput=='loading')
+            setOils('loading')
+        else{
+            if (searchInput?.length>0)
+                setOils(searchInput)
+            else
+                setOils(null)
+        }
+    }, [searchInput])
     const ChangeFilter = (specificationId, field) => {
         const list = filter[field]
         const exist = list?.find(element => element == specificationId)
@@ -73,7 +84,7 @@ const Catalog = () => {
     }, [idCategory])
 
     useEffect(() => {
-        if (!stopSearch) {
+        if (!stopSearch && searchInput!='loading') {
             setOils('loading')
             GetAllProducts(filter).then(res => {
                 if (res) {
@@ -200,8 +211,10 @@ const Catalog = () => {
                                             <Col key={index}>
                                                 <ProductCard
                                                     {...element}
-                                                    fav={favorites?.find(el => el == element?.id)}
-                                                    shop={shopping?.find(el => el == element?.id)}
+                                                    // fav={favorites?.find(el => el == element?.id)}
+                                                    // shop={shopping?.find(el => el == element?.id)}
+                                                    fav={true}
+                                                    shop={true}
                                                 />
                                             </Col>
                                         )}

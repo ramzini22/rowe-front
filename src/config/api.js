@@ -32,6 +32,7 @@ const apiRoutes = {
     GET_OILS_DY_IDS:'product/byIds',
     GET_ONE_OIL:'product/withParameters',
     GET_OILS_WITH_DISCOUNT:'product/withDiscount',
+    GET_OILS_BY_SEARCH:'product/search',
 
     // News
     GET_ALL_NEWS: 'news/paginate',

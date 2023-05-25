@@ -23,6 +23,7 @@ const Product = () => {
     const fav = favorites?.find(el => el == id)
     const shop = shopping?.find(el => el == id)
 
+    console.log(oil)
     useEffect(() => {
         setOil('loading')
         GetOilsOne(id).then(res => {
@@ -80,7 +81,7 @@ const Product = () => {
                                                     <li key={index}>
                                                         <label>
                                                             <NavLink to={`/catalog/product/${element?.id}`}>
-                                                                <input type="radio" checked={element?.id==oil.id} name="packaging" hidden/>
+                                                                <input type="radio" checked={element?.id!=oil.id} name="packaging" hidden/>
                                                                 <div>{element?.volume}Л</div>
                                                             </NavLink>
                                                         </label>

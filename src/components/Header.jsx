@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Container from 'react-bootstrap/Container';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import {Link, NavLink} from 'react-router-dom';
+import {Link, NavLink, useNavigate} from 'react-router-dom';
 import useIsMobile from '../hooks/isMobile';
 import useOnClickOutside from '../hooks/useOnClickOutside';
 import Logo from '../assets/imgs/logo_kzn.svg';
@@ -11,24 +11,36 @@ import SmartphoneIcon from './svg/SmartphoneIcon';
 import Menu from '../assets/imgs/MenuIcon.svg';
 import Plaix from './svg/Plaix';
 import {useAppSelector} from "../store";
+import {useDispatch} from "react-redux";
+import {SearchByString} from "../store/slices/app/Action";
 
 const Header = () => {
   const {mobile} = useIsMobile('991px');
   const ref = useRef();
   const ref2 = useRef();
 
+  const dispatch= useDispatch()
   const [showSearch, setShowSearch] = useState(false);
   const handleCloseSearch = () => setShowSearch(false);
   const handleShowSearch = () => setShowSearch(true);
 
   const information = useAppSelector(state=>state.app.information)
+  const navigate=useNavigate()
 
+  const [inputSearch, setInputSearch] = useState('')
   const [showMenu, setShowMenu] = useState(false);
   const handleCloseMenu = () =>  setShowMenu(false);
   const handleShowMenu = () => setShowMenu(true);
 
-  useOnClickOutside(ref, handleCloseMenu)
-  useOnClickOutside(ref2, handleCloseSearch)
+  const clickSearch = () =>{
+    setShowSearch(false)
+    dispatch(SearchByString(inputSearch))
+    navigate('/catalog')
+    setInputSearch('')
+  }
+
+  // useOnClickOutside(ref, handleCloseMenu)
+  // useOnClickOutside(ref2, handleCloseSearch)
 
   return (
     <>
@@ -52,9 +64,9 @@ const Header = () => {
               </a>
             </>
           }
-          <form action="" className='search d-none d-xxl-flex'>
-            <input type="search" placeholder='Поиск...'/>
-            <button type='submit' className='btn-1'>
+          <form onSubmit={(e)=>e.preventDefault()} className='search d-none d-xxl-flex'>
+            <input value={inputSearch} onChange={e=>setInputSearch(e.target.value)} type="search" placeholder='Поиск...'/>
+            <button type='submit' className='btn-1' onClick={clickSearch}>
               <span>Найти</span>
               <SearchIcon/>
             </button>
@@ -64,7 +76,7 @@ const Header = () => {
             <li>
               {
                 (showSearch)
-                ? <button type='button' onClick={handleCloseSearch} className='d-flex gray fs-15'><CloseIcon/></button>
+                ? <button type='button' onClick={()=>setShowSearch(false)} className='d-flex gray fs-15'><CloseIcon/></button>
                 : <button type='button' onClick={handleShowSearch} className='d-flex gray fs-15'><SearchIcon/></button>
               }
             </li>
@@ -85,9 +97,9 @@ const Header = () => {
       <Offcanvas show={showSearch} onHide={handleCloseSearch} placement={'top'}>
         <Offcanvas.Body ref={ref2} className="py-4 py-md-5">
           <Container>
-            <form action="" className='search w-100'>
-              <input type="search" placeholder='Поиск...' className='flex-1'/>
-              <button type='submit' className='btn-1'>
+            <form onSubmit={(e)=>e.preventDefault()} className='search w-100'>
+              <input value={inputSearch} onChange={e=>setInputSearch(e.target.value)} type="search" placeholder='Поиск...' className='flex-1'/>
+              <button type='submit' className='btn-1' onClick={clickSearch}>
                 <span>Найти</span>
                 <SearchIcon/>
               </button>

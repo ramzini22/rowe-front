@@ -64,119 +64,121 @@ const Home = () => {
                 </Container>
             </section>
 
-            <Container>
-                <section className='sec-3 mb-custom'>
-                    <h3>Каталог товаров</h3>
-                    <Row className="gx-3 gy-3 gy-sm-4">
-                        <Col xs={12} lg={3}>
-                            <Row xs={1} md={2} lg={1} className="gx-3 gy-4">
-                                {categories?.slice(0, 2)?.map((element, index)=>
-                                    <Col key={index}><CategoryCard {...element}/></Col>
-                                )}
-                            </Row>
-                        </Col>
-                        <Col xs={12} lg={3}>
-                            <Row xs={2} lg={1} className="gx-3 gy-4">
-                                {categories?.slice(2, 4)?.map((element, index)=>
-                                    <Col key={index}><CategoryCard {...element}/></Col>
-                                )}
-                            </Row>
-                        </Col>
-                        <Col xs={6} lg={3}>
-                            <CategoryCard {...categories[4]} className={'bigger'} /></Col>
-                        <Col xs={6} lg={3}>
-                            <CategoryCard {...categories[5]} className={'big'} />
-                            <Link to={'/catalog'} state={{idCategory:categories[5]?.id}}>
-                                <button type='button' className='btn-2 w-100 d-none d-lg-block mt-lg-5'>В каталог</button>
-                            </Link>
-                        </Col>
-                    </Row>
-                </section>
-
-                {
-                    oilsWithDiscount?.length>0 &&
-                    <section className='sec-4 mb-custom'>
-                        <h3>Акционные предложения</h3>
-                        <div className='position-relative'>
-                            <Cursor className="cursor-animated"/>
-                            <Swiper
-                                spaceBetween={20}
-                                slidesPerView={1}
-                                breakpoints={{
-                                    576: {
-                                        slidesPerView: 2,
-                                        spaceBetween: 20,
-                                    },
-                                    768: {
-                                        slidesPerView: 3,
-                                        spaceBetween: 20,
-                                    },
-                                    992: {
-                                        slidesPerView: 4,
-                                        spaceBetween: 20,
-                                    },
-                                    1200: {
-                                        slidesPerView: 4,
-                                        spaceBetween: 30,
-                                    },
-                                    1400: {
-                                        slidesPerView: 4,
-                                        spaceBetween: 40,
-                                    },
-                                }}
-                            >
-                                {oilsWithDiscount?.map((element, index)=>
-                                    <SwiperSlide key={index}>
-                                        <OfferCard {...element} />
-                                    </SwiperSlide>
-                                )}
-
-                            </Swiper>
-                        </div>
+            {categories &&
+                <Container>
+                    <section className='sec-3 mb-custom'>
+                        <h3>Каталог товаров</h3>
+                        <Row className="gx-3 gy-3 gy-sm-4">
+                            <Col xs={12} lg={3}>
+                                <Row xs={1} md={2} lg={1} className="gx-3 gy-4">
+                                    {categories?.slice(0, 2)?.map((element, index)=>
+                                        <Col key={index}><CategoryCard {...element}/></Col>
+                                    )}
+                                </Row>
+                            </Col>
+                            <Col xs={12} lg={3}>
+                                <Row xs={2} lg={1} className="gx-3 gy-4">
+                                    {categories?.slice(2, 4)?.map((element, index)=>
+                                        <Col key={index}><CategoryCard {...element}/></Col>
+                                    )}
+                                </Row>
+                            </Col>
+                            <Col xs={6} lg={3}>
+                                <CategoryCard {...categories[4]} className={'bigger'} /></Col>
+                            <Col xs={6} lg={3}>
+                                <CategoryCard {...categories[5]} className={'big'} />
+                                <Link to={'/catalog'} state={{idCategory:categories[5]?.id}}>
+                                    <button type='button' className='btn-2 w-100 d-none d-lg-block mt-lg-5'>В каталог</button>
+                                </Link>
+                            </Col>
+                        </Row>
                     </section>
-                }
 
-                <Banner />
+                    {
+                        oilsWithDiscount?.length>0 &&
+                        <section className='sec-4 mb-custom'>
+                            <h3>Акционные предложения</h3>
+                            <div className='position-relative'>
+                                <Cursor className="cursor-animated"/>
+                                <Swiper
+                                    spaceBetween={20}
+                                    slidesPerView={1}
+                                    breakpoints={{
+                                        576: {
+                                            slidesPerView: 2,
+                                            spaceBetween: 20,
+                                        },
+                                        768: {
+                                            slidesPerView: 3,
+                                            spaceBetween: 20,
+                                        },
+                                        992: {
+                                            slidesPerView: 4,
+                                            spaceBetween: 20,
+                                        },
+                                        1200: {
+                                            slidesPerView: 4,
+                                            spaceBetween: 30,
+                                        },
+                                        1400: {
+                                            slidesPerView: 4,
+                                            spaceBetween: 40,
+                                        },
+                                    }}
+                                >
+                                    {oilsWithDiscount?.map((element, index)=>
+                                        <SwiperSlide key={index}>
+                                            <OfferCard {...element} />
+                                        </SwiperSlide>
+                                    )}
 
-                {
-                    news?.length>0 &&
-                    <section className='sec-6 mb-custom'>
-                        <h2>Будьте в курсе новостей из мира…</h2>
-
-                        <ul className="news-list">
-                            {news?.map((element, index)=>
-                                <li key={index}>
-                                    <NewsPreview {...element} />
-                                </li>)}
-                            <li className='flex-1'>
-                                <Link className='link' to='/blog'>Перейти в блог</Link>
-                            </li>
-                        </ul>
-                    </section>
-                }
-
-                <section className='sec-7 mb-sm-3 mb-md-5'>
-                    <Row xs={1} lg={2} className='align-items-center'>
-                        <Col>
-                            <h2 className='d-flex align-items-baseline'>
-                                <span className='me-3'>О бренде</span>
-                                <img src={Rowe} alt="Rowe"/>
-                            </h2>
-                            <h5>Мы знаем, что должно уметь масло. Наши продукты протестированы в сложнейших условиях на
-                                тысячах километров гоночных трасс. Они созданы для того, чтобы соответствовать
-                                строжайшим требованиям на дорогах.А вы готовы к новому импульсу?</h5>
-                        </Col>
-                        <Col className="ps-lg-5 mt-4 mt-md-5 mt-lg-0">
-                            <div className="video-wrap">
-                                <iframe src="https://www.youtube.com/embed/7o4j42V21qs" title="YouTube video player"
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        allowFullScreen></iframe>
+                                </Swiper>
                             </div>
-                        </Col>
-                    </Row>
-                </section>
-            </Container>
+                        </section>
+                    }
+
+                    <Banner />
+
+                    {
+                        news?.length>0 &&
+                        <section className='sec-6 mb-custom'>
+                            <h2>Будьте в курсе новостей из мира…</h2>
+
+                            <ul className="news-list">
+                                {news?.map((element, index)=>
+                                    <li key={index}>
+                                        <NewsPreview {...element} />
+                                    </li>)}
+                                <li className='flex-1'>
+                                    <Link className='link' to='/blog'>Перейти в блог</Link>
+                                </li>
+                            </ul>
+                        </section>
+                    }
+
+                    <section className='sec-7 mb-sm-3 mb-md-5'>
+                        <Row xs={1} lg={2} className='align-items-center'>
+                            <Col>
+                                <h2 className='d-flex align-items-baseline'>
+                                    <span className='me-3'>О бренде</span>
+                                    <img src={Rowe} alt="Rowe"/>
+                                </h2>
+                                <h5>Мы знаем, что должно уметь масло. Наши продукты протестированы в сложнейших условиях на
+                                    тысячах километров гоночных трасс. Они созданы для того, чтобы соответствовать
+                                    строжайшим требованиям на дорогах.А вы готовы к новому импульсу?</h5>
+                            </Col>
+                            <Col className="ps-lg-5 mt-4 mt-md-5 mt-lg-0">
+                                <div className="video-wrap">
+                                    <iframe src="https://www.youtube.com/embed/7o4j42V21qs" title="YouTube video player"
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                            allowFullScreen></iframe>
+                                </div>
+                            </Col>
+                        </Row>
+                    </section>
+                </Container>
+            }
         </main>
     );
 };

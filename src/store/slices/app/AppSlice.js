@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {GetBanner, GetInformation, GetOptionsWithParams} from '../../../services/Options'
+import {SearchByString} from "./Action";
 
 const initialState = {
     notFound: false,
@@ -7,7 +8,8 @@ const initialState = {
     fingerprint: null,
     alertSlice: null,
     banner: null,
-    information:null
+    information:null,
+    searchInput:null
 }
 const AppSlice = createSlice({
     name: 'app',
@@ -32,6 +34,15 @@ const AppSlice = createSlice({
         })
         builder.addCase(GetInformation.fulfilled, (state, action) => {
             state.information= action.payload
+        })
+        builder.addCase(SearchByString.pending, (state, action) => {
+            state.searchInput= 'loading'
+        })
+        builder.addCase(SearchByString.fulfilled, (state, action) => {
+            state.searchInput= action.payload
+        })
+        builder.addCase(SearchByString.rejected, (state, action) => {
+            state.searchInput= null
         })
     },
 })

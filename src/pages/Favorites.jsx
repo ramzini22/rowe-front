@@ -15,7 +15,7 @@ const Favorites = () => {
     useEffect(() => {
         if (favorites?.length > 0) {
             setOils('loading')
-            GetOilsByIds(favorites)
+            GetOilsByIds(favorites.map(element=>element.id))
                 .then(res => {
                     if (res)
                         setOils(res)
