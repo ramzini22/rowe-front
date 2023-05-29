@@ -11,7 +11,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import useIsMobile from '../hooks/isMobile';
 import CloseIcon from '../components/svg/CloseIcon';
 import {useAppSelector} from "../store";
-import {useLocation} from "react-router-dom";
+import {json, useLocation} from "react-router-dom";
 import {GetaLLParametrs, GetAllProducts, GetSpecifications} from "../services/Options";
 import Loader from "../components/Loader";
 
@@ -30,16 +30,16 @@ const Catalog = () => {
     const [parametrList, setParametrList] = useState()
     const idCategory = state?.idCategory ? state?.idCategory : 1
     const nameCategory = categories?.find(element => element.id == idCategory)?.name
-    const searchInput=useAppSelector(state=>state.app.searchInput)
+    const searchInput = useAppSelector(state => state.app.searchInput)
     const [filter, setFilter] = useReducer((state, newState) => ({...state, ...newState}),
         {
             page: 1, limit: 12, specifications: [], options: []
         })
-    useEffect(()=>{
-        if(searchInput=='loading')
+    useEffect(() => {
+        if (searchInput == 'loading')
             setOils('loading')
-        else{
-            if (searchInput?.length>0)
+        else {
+            if (searchInput?.length > 0)
                 setOils(searchInput)
             else
                 setOils(null)
@@ -59,17 +59,6 @@ const Catalog = () => {
         }
     }
 
-    const ChangeSelect = (value)=>{
-        switch (value){
-            case '0':
-                setFilter({orderBy:'price', direction:'asc'})
-                break;
-            case '1':
-                setFilter({orderBy:'price', direction:'desc'})
-                break;
-        }
-    }
-
 
     useEffect(() => {
         GetSpecifications(idCategory).then(res => {
@@ -84,10 +73,12 @@ const Catalog = () => {
     }, [idCategory])
 
     useEffect(() => {
-        if (!stopSearch && searchInput!='loading') {
+        if (!stopSearch && searchInput != 'loading') {
             setOils('loading')
             GetAllProducts(filter).then(res => {
                 if (res) {
+                    if(!filter?.minPrice)
+                        setStopSearch(true)
                     const {minPrice, maxPrice} = res?.meta
                     if (minPrice && maxPrice)
                         setMinMax([minPrice, maxPrice])
@@ -97,6 +88,30 @@ const Catalog = () => {
             })
         } else setStopSearch(false)
     }, [filter])
+
+
+    const ChangeSelect = (value) => {
+        switch (value) {
+            case '0':
+                setFilter({orderBy: 'price', direction: 'asc'})
+                break;
+            case '1':
+                setFilter({orderBy: 'price', direction: 'desc'})
+                break;
+        }
+    }
+    const ChangeMinMax = values =>{
+        const [minPrice, maxPrice] = values
+        if(JSON.stringify(minMax)!=JSON.stringify(values)) {
+            setFilter({minPrice, maxPrice})
+        }
+        else {
+            const {minPrice:minPrice2, maxPrice:maxPrice2} = filter
+            if(minPrice!=minPrice2 || maxPrice!=maxPrice2) {
+                setFilter({minPrice, maxPrice})
+            }
+        }
+    }
 
     return (
         <main>
@@ -129,7 +144,7 @@ const Catalog = () => {
                                         </button>
                                     </div>
                                     <form className="filter w-100">
-                                        <select className='d-none d-lg-block mb-4' onChange={({target:{value}})=>{
+                                        <select className='d-none d-lg-block mb-4' onChange={({target: {value}}) => {
                                             ChangeSelect(value)
                                         }}>
                                             <option value={0}>Сначала дешёвые</option>
@@ -138,13 +153,7 @@ const Catalog = () => {
                                         </select>
 
                                         <h6>Цена, ₽</h6>
-                                        <InputRange data={minMax} onChange={([minPrice, maxPrice]) => {
-                                            if (filter?.minPrice != minPrice || filter?.maxPrice != maxPrice) {
-                                                setFilter({minPrice, maxPrice})
-                                            }
-                                            if (filter?.minPrice == undefined)
-                                                setStopSearch(true)
-                                        }}/>
+                                        <InputRange data={minMax} onChange={ChangeMinMax}/>
 
                                         <Accordion className='mt-4' defaultActiveKey="0">
                                             {parametrList?.map((element, index) =>
@@ -189,9 +198,10 @@ const Catalog = () => {
                                     </li>
                                 )}
                             </ul>
-                            <div className="d-flex justify-content-between align-items-center d-lg-none mb-4 mb-sm-5" onChange={({target:{value}})=>{
-                                ChangeSelect(value)
-                            }}>
+                            <div className="d-flex justify-content-between align-items-center d-lg-none mb-4 mb-sm-5"
+                                 onChange={({target: {value}}) => {
+                                     ChangeSelect(value)
+                                 }}>
                                 <select>
                                     <option value={0}>Сначала дешёвые</option>
                                     <option value={1}>Сначала дорогие</option>
@@ -202,19 +212,17 @@ const Catalog = () => {
                             </div>
                             {oils === 'loading' ?
                                 <Loader color={'red'}/>
-                                : oils?.length==0 ?
-                                        <Container className={'d-flex justify-content-center'}>
-                                            <h2>Товаров не найдено</h2>
-                                        </Container>
+                                : oils?.length == 0 ?
+                                    <Container className={'d-flex justify-content-center'}>
+                                        <h2>Товаров не найдено</h2>
+                                    </Container>
                                     : <Row xs={2} md={3} className="gx-3 gx-sm-4 gx-xl-5 gy-5">
                                         {oils?.map((element, index) =>
                                             <Col key={index}>
                                                 <ProductCard
                                                     {...element}
-                                                    // fav={favorites?.find(el => el == element?.id)}
-                                                    // shop={shopping?.find(el => el == element?.id)}
-                                                    fav={true}
-                                                    shop={true}
+                                                    fav={favorites?.find(el => el == element?.id)}
+                                                    shop={shopping?.find(el => el.id == element?.id)}
                                                 />
                                             </Col>
                                         )}

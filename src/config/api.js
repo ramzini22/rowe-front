@@ -12,7 +12,7 @@ export async function Api(url='', {body, method}={body:null, method:'GET'}) {
         const init=method=='GET'?{headers: {...mainHeaders}, method}:{headers: {...mainHeaders}, method, body:JSON.stringify(body)}
         const result = await fetch(BASE_API_URL+url,
             {...init})
-        if(result.status==200)
+        if(result.status!=400 && result.status!=500)
             return result.json()
         return null
     }catch (e){
@@ -42,7 +42,10 @@ const apiRoutes = {
     GET_INFORMATION:'settings',
 
     // Banner
-    GET_BANNER:'banner/1'
+    GET_BANNER:'banner/1',
+
+    // Order
+    CREATE_ORDER:'order'
 }
 
 export { BASE_API_URL, BASE_URL }

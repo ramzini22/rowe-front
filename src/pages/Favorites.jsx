@@ -15,7 +15,7 @@ const Favorites = () => {
     useEffect(() => {
         if (favorites?.length > 0) {
             setOils('loading')
-            GetOilsByIds(favorites.map(element=>element.id))
+            GetOilsByIds(favorites)
                 .then(res => {
                     if (res)
                         setOils(res)
@@ -52,7 +52,7 @@ const Favorites = () => {
                                     <ProductCard
                                         {...element}
                                         fav={true}
-                                        shop={shopping?.find(el => el == element?.id)}
+                                        shop={shopping?.find(el => el.id == element?.id)}
                                     />
                                 </Col>
                             )}

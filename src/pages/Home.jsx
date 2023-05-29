@@ -18,6 +18,7 @@ import Banner from "../components/Banner";
 const Home = () => {
     const categories = useAppSelector(state => state.app.categories)
     const [news, setNews] = useState()
+    const {shopping} = useAppSelector(state => state?.user?.user)
 
     const [oilsWithDiscount, setOilsWithDiscount] =useState()
     useEffect(()=>{
@@ -128,7 +129,10 @@ const Home = () => {
                                 >
                                     {oilsWithDiscount?.map((element, index)=>
                                         <SwiperSlide key={index}>
-                                            <OfferCard {...element} />
+                                            <OfferCard
+                                                {...element}
+                                                shop={shopping?.find(el => el.id == element?.id)}
+                                            />
                                         </SwiperSlide>
                                     )}
 

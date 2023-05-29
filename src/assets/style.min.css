@@ -301,10 +301,10 @@ input::-moz-placeholder, textarea::-moz-placeholder {
     font-weight: 400
 }
 
-input::placeholder, textarea::placeholder {
-    color: #f3f3f3;
-    font-weight: 400
-}
+/*input::placeholder, textarea::placeholder {*/
+/*    color: #f3f3f3;*/
+/*    font-weight: 600*/
+/*}*/
 
 input[type=radio] {
     appearance: none;
@@ -688,7 +688,8 @@ header {
     box-shadow: 0px 4px 30px rgba(0, 0, 0, .05);
     background-color: #fff;
     height: var(--h-height);
-    position: relative;
+    position: sticky;
+    top:0;
     z-index: 1050
 }
 
@@ -2439,7 +2440,7 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active {
     --bs-offcanvas-height: fit-content;
     --bs-offcanvas-padding-x: 0px;
     --bs-offcanvas-padding-y: 0px;
-    --bs-offcanvas-width: 100%
+    --bs-offcanvas-width: 100%;
 }
 
 .offcanvas-top {
@@ -2641,7 +2642,7 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active {
 
 @media(min-width: 768px){
     .product-for-card{
-        font-size:1.1em;
+        font-size:0.9em;
     }
 
 }
@@ -2677,9 +2678,10 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active {
 }
 
 .btn1-shop, .btn2-shop{
-    color:red;
+    color:#c00;
+    user-select:none;
     cursor: pointer;
-    border: 1px solid red;
+    border: 1px solid #c00;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2689,8 +2691,8 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active {
 
 
 .btn1-shop{
-    color:red;
-    border: 1px solid red;
+    color:#c00;
+    border: 1px solid #c00;
     width:30px;
     border-radius: 5px;
 }
@@ -2711,6 +2713,56 @@ footer ul li a:hover, footer ul li a:focus, footer ul li a:active {
 @media(max-width: 767px){
     .btn2-shop{
         min-width: 40%;
+    }
+}
+.zakaz{
+    width:70%;
+    position:absolute;
+    top:200px;
+    background-color:white;
+    padding:15px;
+    border-radius:10px
+}
+.zakaz img{
+    width:auto;
+}
+@media(min-width: 768px){
+    .zakaz{
+        padding: 50px;
+        width:70%;
+        max-width: 800px;
+    }
+}
+
+@media(max-width: 767px){
+    .zakaz{
+        width:90%;
+        padding: 25px;
+    }
+}
+
+.zakaz-div1 font{
+    white-space: nowrap;
+}
+.zakaz-div1{
+    /*position: fixed;*/
+    /*bottom:0;*/
+}
+.zakaz-div2{
+    background-color: #F3F3F3;
+}
+@media(max-width: 991px){
+    .zakaz-div1{
+        position: fixed;
+        bottom:var(--f-height);;
+        left:0;
+        width: 100%;
+    }
+}
+
+@media(min-width: 992px){
+    .zakaz-div2{
+        border-radius: 15px;
     }
 }
 

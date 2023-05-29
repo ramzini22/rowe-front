@@ -21,7 +21,7 @@ const ProductCard = (props) => {
                         : props.volume+'Л;'
                     }
                 </p>
-                <p>Вязкость: 10W-60</p>
+                {/*<p>Вязкость: 10W-60</p>*/}
             </div>
             <div className='bottom'>
                 <div>
@@ -29,7 +29,7 @@ const ProductCard = (props) => {
                     {oldPrice && <h6>{FunctionForPrice(oldPrice) + ' ₽'}</h6>}
                 </div>
                 <button type='button' className={`btn-2 ${shop ? 'btn2-active' : ''}`}
-                        onClick={() => ChangeShopping({id, key:true})}
+                        onClick={() => !shop && ChangeShopping({id, key:true, price})}
                 >
                     {shop ? 'В корзине' : 'В корзину'}
                 </button>

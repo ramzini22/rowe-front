@@ -25,7 +25,7 @@ const AppSlice = createSlice({
             state.alertSlice = {...action.payload, isShow: true}
         }
     },
-    extraReducers: (builder) => {
+    extraReducers: builder => {
         builder.addCase(GetOptionsWithParams.fulfilled, (state, action) => {
             state.categories = action.payload
         })

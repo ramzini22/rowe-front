@@ -12,7 +12,7 @@ const Banner = () => {
                 <Row>
                     <Col xs={12} md={7}>
                         <h2 className='h1'>{banner?.title}</h2>
-                        <h5>{banner?.description}</h5>
+                        <div dangerouslySetInnerHTML={{__html:banner?.description}}></div>
                     </Col>
                     <Col xs={12} md={5} className="mt-4 mt-md-0">
                         <img src="imgs/img9.png" alt="HIGHTEC SYNT RSV SAE 0W-20"/>

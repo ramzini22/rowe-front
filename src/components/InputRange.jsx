@@ -1,5 +1,6 @@
 import React, {memo, useEffect, useState} from 'react';
 import {Slider} from "@mui/material";
+import useDebounce from "../hooks/useDebounce";
 
 const InputRange = ({data, onChange}) => {
 
@@ -7,6 +8,14 @@ const InputRange = ({data, onChange}) => {
 
     const [startValue, setStartValue] = useState(minV);
     const [endValue, setEndValue] = useState(maxV);
+
+    const values = useDebounce([startValue, endValue], 200)
+
+    useEffect(()=>{
+        const [min, max] = values
+        if(min!=0 && max!=0)
+            onChange(values)
+    }, [values])
 
     useEffect(() => {
         setStartValue(minV)
@@ -30,13 +39,10 @@ const InputRange = ({data, onChange}) => {
                        onChange={(e) => setEndValue(e.target.value)} className='ms-3'/>
             </div>
             <Slider
-                getAriaLabel={() => 'Temperature range'}
                 value={[startValue, endValue]}
                 min={minV}
                 max={maxV}
                 classes={{thumb:'thumb', track:'track'}}
-                onMouseUp={()=>onChange([startValue, endValue])}
-                // onMouseUp={onChange([startValue, endValue])}
                 onChange={handleChange}
                 valueLabelDisplay="auto"
             />
