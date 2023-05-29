@@ -20,6 +20,7 @@ const userSlice = createSlice({
                 state.user.favorites=state.user.favorites.filter(element=>element!=id)
             else
                 state.user.favorites.push(Number(id))
+            // state.user.favorites=[]
         },
         ChangeShopping(state, action) {
             const {id, key, price} = action?.payload

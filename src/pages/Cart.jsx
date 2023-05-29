@@ -14,7 +14,10 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import SearchIcon from "../components/svg/SearchIcon";
 import {useForm} from "react-hook-form";
 import {CreateOrder} from "../services/order";
-import img1 from '../assets/imgs/woman.png'
+import img2 from '../assets/imgs/smallOkey.png'
+import img3 from '../assets/imgs/bigOkey.png'
+import img1 from '../assets/imgs/woman.png';
+import {useNavigate} from "react-router-dom";
 
 const Cart = () => {
     const {favorites, shopping} = useAppSelector(state => state?.user?.user)
@@ -24,9 +27,11 @@ const Cart = () => {
     const [checked, setChecked] = useState([])
     const [mainChecked, setMainChecked] = useState(false)
     const [sum, setSum] = useState(0)
+    const [sumOfZakaz, setSumOfZakaz] = useState()
     const [showPreZakaz, setShowPreZakaz] = useState(false);
     const [zakaz, setZakaz] = useState();
     const ref2 = useRef();
+    const navigate = useNavigate()
     const {
         formState: {errors},
         handleSubmit,
@@ -76,13 +81,17 @@ const Cart = () => {
             setChecked(newArray)
     }
 
+    console.log(zakaz)
     const CreateZakaz = (data) => {
+        setSumOfZakaz(sum)
         const products = shopping
             ?.filter(element => checked?.find(el => el == element.id) ? true : false)
             ?.map(element => ({"productId": element.id, "amount": element.count}))
         const request = {...data, products}
         dispatch(CreateOrder(request)).then(({payload: {response}}) => {
             if (response) {
+                setSumOfZakaz(sum)
+                setChecked([])
                 setZakaz(response)
             } else {
                 alert('Произошла ощибка')
@@ -174,17 +183,19 @@ const Cart = () => {
                         </Row>
                     </div>
                 </Container>
-                <Offcanvas show={showPreZakaz} onHide={() => setShowPreZakaz(false)} placement={'top'}>
+                <Offcanvas show={showPreZakaz} onHide={() => {setShowPreZakaz(false);setZakaz(undefined);setSumOfZakaz(undefined)}} placement={'top'}>
                     <Offcanvas.Body ref={ref2}>
                         <Container className={'d-flex justify-content-center'}>
                             <form onSubmit={handleSubmit(CreateZakaz)} className={'zakaz'}>
                                 {zakaz ?
                                     <div>
-                                        <div>
+                                        <div className={'d-none d-lg-block'} style={{float:'right'}}><img src={img2} /></div>
+                                        <div className={'d-md-block d-lg-none'} style={{width:'100%'}}><img className={'w-100'} src={img3} /></div>
+                                        <div className={'py-2 py-lg-0'}>
                                             <h4>Уникальный ID заказа: <font>{zakaz?.id}</font></h4>
                                         </div>
                                         <div>
-                                            Заказ на сумму {sum} ₽ отправлен на обработку
+                                            Заказ на сумму {sumOfZakaz} ₽ отправлен на обработку
                                         </div>
                                         <button
                                             type={'button'}
@@ -193,7 +204,6 @@ const Cart = () => {
                                         >
                                             Вернуться в каталог
                                         </button>
-
                                     </div>
                                     : <Row xs={12}>
                                         <Col md={7} sm={12}>
@@ -239,9 +249,7 @@ const Cart = () => {
                                             </Row>
                                         </Col>
                                         <Col md={5} sm={0} className={'d-none d-md-inline-block'}>
-                                            {/*<img src={img1}*/}
-                                            <img src={'https://s16.stc.yc.kpcdn.net/share/i/12/11735901/wr-960.webp'}
-                                                 className={'w-100'} alt={'2'}/>
+                                            <img src={img1} style={{width:'80%', float:'right'}} />
                                         </Col>
                                     </Row>
                                 }
@@ -259,6 +267,33 @@ const Cart = () => {
                     <NavBreadcrumbs pageName={'Корзина'}/>
                     <h1>Товаров не найдено</h1>
                 </Container>
+                <Offcanvas show={showPreZakaz} onHide={() => setShowPreZakaz(false)} placement={'top'}>
+                    <Offcanvas.Body ref={ref2}>
+                        <Container className={'d-flex justify-content-center'}>
+                            <form onSubmit={handleSubmit(CreateZakaz)} className={'zakaz'}>
+                                {zakaz &&
+                                    <div>
+                                        <div className={'d-none d-lg-block'} style={{float:'right'}}><img src={img2} /></div>
+                                        <div className={'d-md-block d-lg-none'} style={{width:'100%'}}><img className={'w-100'} src={img3} /></div>
+                                        <div className={'py-2 py-lg-0'}>
+                                            <h4>Уникальный ID заказа: <font>{zakaz?.id}</font></h4>
+                                        </div>
+                                        <div>
+                                            Заказ на сумму {sumOfZakaz} ₽ отправлен на обработку
+                                        </div>
+                                        <button
+                                            type={'button'}
+                                            onClick={()=>{setShowPreZakaz(false);setZakaz(undefined);navigate('/catalog')}}
+                                            className={`btn-2 btn2-active my-3`}
+                                        >
+                                            Вернуться в каталог
+                                        </button>
+                                    </div>
+                                }
+                            </form>
+                        </Container>
+                    </Offcanvas.Body>
+                </Offcanvas>
             </main>
         );
 };
