@@ -7,6 +7,7 @@ import {initFingerprint} from "../store/slices/app/Action";
 import Alert from "../components/Alert";
 import {GetBanner, GetInformation, GetOptionsWithParams} from "../services/Options";
 import ChangeLocation from "./ChangeLocation";
+import Request from "../components/Request";
 
 const AppLayout = () => {
     const fingerprint = localStorage.getItem('fingerprint')
@@ -26,6 +27,7 @@ const AppLayout = () => {
                 <Outlet/>
             </ChangeLocation>
             <Alert />
+            <Request />
             <Footer/>
         </>
     );
