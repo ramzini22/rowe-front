@@ -45,7 +45,10 @@ const apiRoutes = {
     GET_BANNER:'banner/1',
 
     // Order
-    CREATE_ORDER:'order'
+    CREATE_ORDER:'order',
+
+    // Connection
+    CREATE_CONNECT:'callRequest'
 }
 
 export { BASE_API_URL, BASE_URL }

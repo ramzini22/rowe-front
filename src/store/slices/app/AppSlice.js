@@ -10,7 +10,7 @@ const initialState = {
     banner: null,
     information:null,
     searchInput:null,
-    requestShow:false
+    requestShow:true
 }
 const AppSlice = createSlice({
     name: 'app',
@@ -25,8 +25,11 @@ const AppSlice = createSlice({
         setAlert: (state, action) => {
             state.alertSlice = {...action.payload, isShow: true}
         },
-        setRequestShow(state){
+        setRequestShow(state ,action){
             state.requestShow=!state.requestShow
+        },
+        RequestShowInit(state ,action){
+            state.requestShow=true
         }
     },
     extraReducers: builder => {

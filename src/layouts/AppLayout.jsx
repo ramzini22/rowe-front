@@ -8,13 +8,16 @@ import Alert from "../components/Alert";
 import {GetBanner, GetInformation, GetOptionsWithParams} from "../services/Options";
 import ChangeLocation from "./ChangeLocation";
 import Request from "../components/Request";
+import {useAppAction} from "../store";
 
 const AppLayout = () => {
     const fingerprint = localStorage.getItem('fingerprint')
     const dispatch = useDispatch()
+    const {RequestShowInit} = useAppAction()
     useEffect(() => {
         dispatch(GetOptionsWithParams())
         dispatch(GetBanner())
+        dispatch(RequestShowInit())
         dispatch(GetInformation())
         if (!fingerprint)
             dispatch(initFingerprint())

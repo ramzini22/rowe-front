@@ -11,7 +11,6 @@ import ProductForCard from "../components/ProductForCard";
 import {RiDeleteBin6Line} from 'react-icons/ri'
 import FunctionForPrice from "../helpers/FunctionForPrice";
 import Offcanvas from "react-bootstrap/Offcanvas";
-import SearchIcon from "../components/svg/SearchIcon";
 import {useForm} from "react-hook-form";
 import {CreateOrder} from "../services/order";
 import img2 from '../assets/imgs/smallOkey.png'
