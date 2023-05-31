@@ -45,8 +45,11 @@ const Cart = () => {
             setOils('loading')
             GetOilsByIds(shopping.map(element => element.id))
                 .then(res => {
-                    if (res)
+                    if (res){
                         setOils(res)
+                        setMainChecked(!mainChecked)
+                        setChecked(res?.map(element => element.id))
+                    }
                     else
                         setOils(null)
                 })
