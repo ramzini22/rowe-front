@@ -7,12 +7,13 @@ import Wapp from '../components/svg/Wapp';
 import useIsMobile from '../hooks/isMobile';
 import NavBreadcrumbs from '../components/NavBreadcrumbs';
 import Banner from "../components/Banner";
-import {useAppSelector} from "../store";
+import {useAppAction, useAppSelector} from "../store";
 import {GetInformation} from "../services/Options";
 
 const Contacts = () => {
     const {mobile} = useIsMobile('991px');
     const information = useAppSelector(state=>state.app.information)
+    const {setRequestShow} = useAppAction()
     return (
         <main>
             <Container>
@@ -36,11 +37,10 @@ const Contacts = () => {
                                 <div>
                                     <h3 className='mt-5 mb-3'>Возникли вопросы?</h3>
                                     <h6>Оставьте заявку и наш менеджер свяжется с вами в течение 15 минут</h6>
-                                    <button type='button' className='btn-1 mt-4'>Оставить заявку</button>
+                                    <button type='button' className='btn-1 mt-4' onClick={setRequestShow}>Оставить заявку</button>
                                 </div>
                             }
                         </Col>
-
                         <Col xs={12} lg={8}>
                             <iframe title="map"
                                     src="https://yandex.ru/map-widget/v1/?um=constructor%3A88fb796c1b3edb68fae80f64766a89d0d70d232b285986860bd2460ed54aba9d&amp;source=constructor"

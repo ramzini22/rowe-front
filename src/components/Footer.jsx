@@ -11,12 +11,13 @@ import PersonIcon from './svg/PersonIcon';
 import CatalogIcon from './svg/CatalogIcon';
 import HomeIcon from './svg/HomeIcon';
 import ContactsIcon from './svg/ContactsIcon';
-import {useAppSelector} from "../store";
+import {useAppAction, useAppSelector} from "../store";
 
 const Footer = () => {
     const {mobile} = useIsMobile('991px')
     const {favorites, shopping} = useAppSelector(state => state?.user?.user)
     const categories = useAppSelector(state => state.app.categories)
+    const {setRequestShow} = useAppAction()
 
     return (
         <>
@@ -79,7 +80,7 @@ const Footer = () => {
                                 <Col md={6}>
                                     <h4>Не нашли что искали?</h4>
                                     <h6>Оставьте заявку и наш менеджер свяжется с вами в течение 15 минут</h6>
-                                    <button type='button' className='btn-1 fw-5 mt-4'>Оставить заявку</button>
+                                    <button type='button' className='btn-1 fw-5 mt-4' onClick={setRequestShow}>Оставить заявку</button>
                                 </Col>
                             </Row>
                             <Row>
