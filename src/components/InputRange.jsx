@@ -5,21 +5,27 @@ import useDebounce from "../hooks/useDebounce";
 const InputRange = ({data, onChange}) => {
 
     const [minV, maxV] = data
-
-    const [startValue, setStartValue] = useState(minV);
-    const [endValue, setEndValue] = useState(maxV);
+    const [stopSearch, setStopSearch] = useState(true)
+    const [startValue, setStartValue] = useState();
+    const [endValue, setEndValue] = useState();
 
     const values = useDebounce([startValue, endValue], 200)
 
     useEffect(()=>{
         const [min, max] = values
-        if(min!=0 && max!=0)
-            onChange(values)
+        if(min!=0 && max!=0){
+            if(!stopSearch)
+                onChange(values)
+            else
+                setStopSearch(false)
+        }
     }, [values])
 
     useEffect(() => {
         setStartValue(minV)
         setEndValue(maxV)
+
+        setStopSearch(true)
     }, [minV, maxV])
 
     const handleChange = (event, newValue) => {
@@ -31,12 +37,9 @@ const InputRange = ({data, onChange}) => {
         <div className='range'>
             <div className='range-inputs mb-4'>
                 <input type="number" placeholder='0' value={startValue} min={minV} max={maxV}
-                       onChange={(e) => {
-                           const value = e.target.value
-                           setStartValue(value)
-                       }}/>
-                <input type="number" placeholder='0' value={endValue} min={minV} max={maxV}
-                       onChange={(e) => setEndValue(e.target.value)} className='ms-3'/>
+                       onChange={(e) => setStartValue(e.target.value)}/>
+                <input type="number" className='ms-3' placeholder='0' value={endValue} min={minV} max={maxV}
+                       onChange={(e) => setEndValue(e.target.value)}/>
             </div>
             <Slider
                 value={[startValue, endValue]}
@@ -50,4 +53,4 @@ const InputRange = ({data, onChange}) => {
     );
 };
 
-export default memo(InputRange);
+export default InputRange;

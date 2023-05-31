@@ -7,10 +7,12 @@ const ChangeLocation = ({children, ...props}) => {
     const [newUrl, setNewUrl] = useState('')
     const styles = useSpring({
         from: {
-            opacity: 0
+            opacity: 0,
+            minHeight:'calc(100vh - 45px)'
         },
         to: {
-            opacity: 1
+            opacity: 1,
+            minHeight:'calc(100vh - 45px)'
         },
         config: {
             duration:300

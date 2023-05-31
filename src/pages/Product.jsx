@@ -23,7 +23,6 @@ const Product = () => {
     const fav = favorites?.find(el => el == id)
     const shop = shopping?.find(el => el == id)
 
-    console.log(oil)
     useEffect(() => {
         setOil('loading')
         GetOilsOne(id).then(res => {
@@ -47,7 +46,7 @@ const Product = () => {
                                 <ul>
                                     {categories?.map((element, index) =>
                                         <li key={index}>
-                                            <li><CategoryPill {...element} /></li>
+                                            <CategoryPill {...element} />
                                         </li>
                                     )}
                                 </ul>

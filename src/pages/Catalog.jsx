@@ -14,6 +14,7 @@ import {useAppSelector} from "../store";
 import {json, useLocation} from "react-router-dom";
 import {GetaLLParametrs, GetAllProducts, GetSpecifications} from "../services/Options";
 import Loader from "../components/Loader";
+import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
 
 const Catalog = () => {
     const {mobile} = useIsMobile('991px');
@@ -25,7 +26,6 @@ const Catalog = () => {
     const handleShowFilters = () => setShowFilters(true);
     const [oils, setOils] = useState()
     const [minMax, setMinMax] = useState([0, 0])
-    const [stopSearch, setStopSearch] = useState(false)
     const [categoriesList, setCategoriesList] = useState()
     const [parametrList, setParametrList] = useState()
     const idCategory = state?.idCategory ? state?.idCategory : 1
@@ -39,10 +39,10 @@ const Catalog = () => {
         if (searchInput == 'loading')
             setOils('loading')
         else {
-            if (searchInput?.length > 0)
+            if (searchInput)
                 setOils(searchInput)
             else
-                setOils(null)
+                setOils([])
         }
     }, [searchInput])
     const ChangeFilter = (specificationId, field) => {
@@ -73,22 +73,19 @@ const Catalog = () => {
     }, [idCategory])
 
     useEffect(() => {
-        if (!stopSearch && searchInput != 'loading') {
+        if (searchInput != 'loading') {
             setOils('loading')
             GetAllProducts(filter).then(res => {
                 if (res) {
-                    if(!filter?.minPrice)
-                        setStopSearch(true)
                     const {minPrice, maxPrice} = res?.meta
                     if (minPrice && maxPrice)
                         setMinMax([minPrice, maxPrice])
                     setOils(res?.body)
                 } else
-                    setOils(null)
+                    setOils([])
             })
-        } else setStopSearch(false)
+        }
     }, [filter])
-
 
     const ChangeSelect = (value) => {
         switch (value) {
@@ -112,8 +109,13 @@ const Catalog = () => {
             }
         }
     }
-
-    return (
+    if(!parametrList){
+        return(
+            <Loader />
+        )
+    }
+    else
+        return (
         <main>
             <Container>
                 <NavBreadcrumbs pageName={'Каталог'}/>
@@ -130,7 +132,7 @@ const Catalog = () => {
                     </section>
                 }
 
-                <section className='sec-9 mb-sm-4 mb-md-5'>
+                <section className='sec-9 mb-sm-4 mb-md-5 min-vh-100'>
                     <h1 className='inner'>{nameCategory}</h1>
                     <Row className='gx-4 gx-xl-5'>
                         <Col xs={12} lg={3} className="pe-xxl-5">
@@ -211,7 +213,7 @@ const Catalog = () => {
                                 <button type='button' onClick={handleShowFilters}>Фильтры</button>
                             </div>
                             {oils === 'loading' ?
-                                <Loader color={'red'}/>
+                                <Loader color={'red'} small={true}/>
                                 : oils?.length == 0 ?
                                     <Container className={'d-flex justify-content-center'}>
                                         <h2>Товаров не найдено</h2>

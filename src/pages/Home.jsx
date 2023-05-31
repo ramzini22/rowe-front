@@ -14,6 +14,8 @@ import {useAppSelector} from "../store";
 import {GetAllNews} from "../services/News";
 import {GetOilsWithDiscount} from "../services/Oils";
 import Banner from "../components/Banner";
+import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
+import Loader from "../components/Loader";
 
 const Home = () => {
     const categories = useAppSelector(state => state.app.categories)
@@ -35,7 +37,12 @@ const Home = () => {
         })
 
     }, [])
-    return (
+    if(!categories)
+        return (
+            <Loader />
+    )
+    else
+        return (
         <main>
             <Container>
                 <section className='sec-1'>
