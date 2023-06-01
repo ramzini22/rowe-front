@@ -179,12 +179,13 @@ const Home = () => {
                                     строжайшим требованиям на дорогах.А вы готовы к новому импульсу?</h5>
                             </Col>
                             <Col className="ps-lg-5 mt-4 mt-md-5 mt-lg-0">
-                                <div className="video-wrap">
-                                    <iframe src="https://www.youtube.com/embed/7o4j42V21qs" title="YouTube video player"
-                                            frameBorder="0"
+                                {/*<div className="video-wrap">*/}
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/7o4j42V21qs"
+                                            title="YouTube video player" frameBorder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                            allowFullScreen></iframe>
-                                </div>
+                                            allowFullScreen>
+                                    </iframe>
+                                {/*</div>*/}
                             </Col>
                         </Row>
                     </section>
